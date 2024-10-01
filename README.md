@@ -1,38 +1,56 @@
-Repo for the SWE573 - Software Development Practice Course at Bogazici University. 
+# Repo for the SWE573 - Software Development Practice Course at Bogazici University 📚
+
 This repo will be used throughout this semester for this course.
 
-# Git
+---
 
-## Overview
+# Types of Issues in This Repository 🏷️
+
+Types of issue tags that will be used in this repository are: 
+
+- 🔴 **Bug**
+- 🔵 **Documentation**
+- 🟢 **New**
+- 🟡 **Wontfix**
+
+---
+
+# Git 📂
+
+## Overview ✨
+
 Git is a widely used version control system that saves the snapshot of a project every time a change is made to it. Git is a distributed version control system, meaning, the clients (developers) fully mirror the codebase instead of just checking out the latest snapshots of files. This way, the project is mirrored on every client, including its full history. Therefore if any server or client dies or gets corrupted, any one of the working repositories can be copied to everyone to restore the whole project.
 
-> Every clone is really a full backup of all the data.
+> **Every clone is really a full backup of all the data.**
 
 ---
 
-## Core Git Features
+## Core Git Features 🔑
 
-1. [Branching and Merging](#branching-and-merging)
-2. [Small and Fast](#small-and-fast)
-3. [Distributed](#distributed)
-4. [Data Assurance](#data-assurance)
-5. [Git Cheat Sheet](#git-cheat-sheet)
+1. [Branching and Merging](#branching-and-merging) 🌱
+2. [Small and Fast](#small-and-fast) ⚡
+3. [Distributed](#distributed) 🌍
+4. [Data Assurance](#data-assurance) 🔒
+5. [Git Cheat Sheet](#git-cheat-sheet) 📝
 
 ---
 
-## Branching and Merging
+## Branching and Merging 🌱
 
-The most distinguishing feature of git among other version control systems is its branching and merging model. Thanks to branching, you can have multiple versions of the project that are independent of each other. Branching allows a developer to test an idea, experiment on the existing project without messing it up, or have a branch for every new feature (so that you can switch easily between branches to see a version of the app with and without the feature) and much more. 
+The most distinguishing feature of git among other version control systems is its **branching and merging** model. Thanks to branching, you can have multiple versions of the project that are independent of each other. Branching allows a developer to:
+- Test an idea,
+- Experiment on the existing project without messing it up,
+- Have a branch for every new feature (so that you can switch easily between branches to see a version of the app with and without the feature).
 
 When you want to merge two branches, git automatically detects changes in files and merges the lines seamlessly within seconds.
 
 ---
 
-## Small and Fast
+## Small and Fast ⚡
 
-Speed and performance has been a primary design goal for Git. Therefore, it is fast and small. Almost all git operations are done locally, which makes it so much faster than talking to a server all the time.
+Speed and performance have been a primary design goal for Git. Therefore, it is fast and small. Almost all git operations are done locally, which makes it so much faster than talking to a server all the time.
 
-Below table[^1] is a comparison of Git and SVN for the same operation using a server with no load and a gigabit internet connection to the client machine. This makes it an ideal best-case scenario for SVN while it mostly doesn't affect Git at all. (SVN is another popular version control system that is centralized.)
+Below[^1] is a comparison of Git and SVN for the same operation using a server with no load and a gigabit internet connection to the client machine. This makes it an ideal best-case scenario for SVN while it mostly doesn't affect Git at all. (SVN is another popular version control system that is centralized.)
 
 | Operation         | Description                                            | Git  | SVN   | Performance Difference |
 |-------------------|--------------------------------------------------------|------|-------|------------------------|
@@ -49,39 +67,39 @@ Below table[^1] is a comparison of Git and SVN for the same operation using a se
 
 ---
 
-## Distributed
+## Distributed 🌍
 
 Git is a distributed version control system. That means every developer on the project has a clone of the entire history of the repository instead of just seeing the latest version and editing it. This means that every developer has a local backup of the project, creating a very robust system against server failures or data corruption (or just mistakes).
 
 Thanks to Git being distributed and having a branching system, many workflows for software development can be implemented regardless of project size. All images below are taken from git's official website[^2]:
 
-### SVN-Style Workflow
+### SVN-Style Workflow 🛠️
 
 ![SVN-Style Workflow](https://git-scm.com/images/about/workflow-a@2x.png)
 
 This workflow is very common in small projects where every developer just contributes to a shared repository. Since Git doesn't allow you to commit to a repository unless you have the latest version, this system works fine.
 
-### Integration Manager Workflow
+### Integration Manager Workflow 📥
 
 ![Integration Manager Workflow](https://git-scm.com/images/about/workflow-b@2x.png)
 
-This workflow is very common in teams where there is one lead person responsible for integration. This person decides when a particular branch will be merged with the main repository and can approve or deny certain developments. 
+This workflow is very common in teams where there is one lead person responsible for integration. This person decides when a particular branch will be merged with the main repository and can approve or deny certain developments.
 
-### Dictator and Lieutenants Workflow
+### Dictator and Lieutenants Workflow 👑
 
 ![Dictator and Lieutenants Workflow](https://git-scm.com/images/about/workflow-c@2x.png)
 
-Dictator and Lieutenants Workflow is more suitable for very large projects with many parallel developments and much more people. In this workflow, 'liutenants' each act as a project manager from the previous workflow, and a 'dictator' works as a project manager for liutenants. As you can see, the distributed nature of git allows for infinite scaling when managing a project.
+Dictator and Lieutenants Workflow is more suitable for very large projects with many parallel developments and much more people. In this workflow, 'lieutenants' each act as a project manager from the previous workflow, and a 'dictator' works as a project manager for lieutenants. As you can see, the distributed nature of git allows for infinite scaling when managing a project.
 
 ---
 
-## Data Assurance
+## Data Assurance 🔒
 
-Git's data model ensures cryptographic integrity by checksumming every file and commit, guaranteeing that you always retrieve the exact data you put in. Any changes to files, commit messages, or timestamps alter the IDs of subsequent commits, ensuring that a specific commit ID represents an untampered project history. This level of data assurance is not typically provided by centralized version control systems.
+Git's data model ensures **cryptographic integrity** by checksumming every file and commit, guaranteeing that you always retrieve the exact data you put in. Any changes to files, commit messages, or timestamps alter the IDs of subsequent commits, ensuring that a specific commit ID represents an untampered project history. This level of data assurance is not typically provided by centralized version control systems.
 
 ---
 
-## Git Cheat Sheet
+## Git Cheat Sheet 📝
 
 | Git Command                     | Description                                                                                          |
 |----------------------------------|------------------------------------------------------------------------------------------------------|
@@ -107,7 +125,9 @@ Git's data model ensures cryptographic integrity by checksumming every file and 
 | `git pull <remote>`              | Fetch the specified remote's copy of the current branch and immediately merge it into the local copy. |
 | `git push <remote> <branch>`     | Push the branch to `<remote>`, along with necessary commits and objects. Creates the named branch in the remote repo if it doesn't exist. |
 
+---
 
+### Footnotes
 
-[^1]: https://git-scm.com/about/small-and-fast
-[^2]: https://git-scm.com/about/distributed
+[^1]: [Git Small and Fast](https://git-scm.com/about/small-and-fast)  
+[^2]: [Git Distributed](https://git-scm.com/about/distributed)
