@@ -4,17 +4,6 @@ This repo will be used throughout this semester for this course.
 
 ---
 
-# Types of Issues in This Repository 🏷️
-
-Types of issue tags that will be used in this repository are: 
-
-- 🔴 **Bug**
-- 🔵 **Documentation**
-- 🟢 **New**
-- 🟡 **Wontfix**
-
----
-
 # Git 📂
 
 ## Overview ✨
