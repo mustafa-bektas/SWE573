@@ -31,7 +31,6 @@ Git is a widely used version control system that saves the snapshot of a project
 2. [Small and Fast](#small-and-fast) ⚡
 3. [Distributed](#distributed) 🌍
 4. [Data Assurance](#data-assurance) 🔒
-5. [Git Cheat Sheet](#git-cheat-sheet) 📝
 
 ---
 
