@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e75082fb-e035-479c-9e39-c426a234b1dc" name="Changes" comment="#4 - created MysteryObject entity">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/config/MyDataRestConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="e75082fb-e035-479c-9e39-c426a234b1dc" name="Changes" comment="#5 - bootstrapped the frontend to backend, there is now a simple form in the frontend for adding new mysteryobjects">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/dao/MysteryObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/dao/MysteryObjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/tsconfig.app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-frontend/tsconfig.spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/tsconfig.spec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/components/mystery-object/mystery-object.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/components/mystery-object/mystery-object.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/components/mystery-object/mystery-object.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/components/mystery-object/mystery-object.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/interfaces/mystery-object.ts" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/interfaces/mystery-object.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +80,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "H:\\SWE573\\swe573-frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -104,6 +97,11 @@
   </component>
   <component name="RunManager">
     <configuration name="Swe573BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="DATASOURCE_URL" value="jdbc:mysql://database-1.ctgeeyo8mprv.eu-north-1.rds.amazonaws.com:3306/swe573" />
+        <env name="DATASOURCE_USERNAME" value="admin" />
+        <env name="DATASOURCE_PW" value="aOqC2ONfgskly8q5sVf6" />
+      </envs>
       <module name="swe573-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.mbektas.swe573_backend.Swe573BackendApplication" />
       <method v="2">
@@ -128,7 +126,7 @@
       <option name="presentableId" value="Default" />
       <updated>1729531808110</updated>
       <workItem from="1729531810099" duration="4456000" />
-      <workItem from="1729614143298" duration="3781000" />
+      <workItem from="1729614143298" duration="4849000" />
     </task>
     <task id="LOCAL-00001" summary="#2 - missing files added">
       <option name="closed" value="true" />
@@ -154,16 +152,26 @@
       <option name="project" value="LOCAL" />
       <updated>1729614228477</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="#5 - bootstrapped the frontend to backend, there is now a simple form in the frontend for adding new mysteryobjects">
+      <option name="closed" value="true" />
+      <created>1729618556507</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729618556507</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="#2 - missing files added" />
     <MESSAGE value="#3 - added aws database connection" />
     <MESSAGE value="#4 - created MysteryObject entity" />
-    <option name="LAST_COMMIT_MESSAGE" value="#4 - created MysteryObject entity" />
+    <MESSAGE value="#5 - bootstrapped the frontend to backend, there is now a simple form in the frontend for adding new mysteryobjects" />
+    <option name="LAST_COMMIT_MESSAGE" value="#5 - bootstrapped the frontend to backend, there is now a simple form in the frontend for adding new mysteryobjects" />
   </component>
 </project>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MysteryObject } from '../../interfaces/mystery-object';
+import { ItemCondition, MysteryObject } from '../../interfaces/mystery-object';
 import { MysteryObjectService } from '../../services/mystery-object.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class MysteryObjectComponent {
     sizeY: 0,
     sizeZ: 0,
     weight: 0,
-    itemCondition: 'NEW'
+    item_condition: ItemCondition.NEW
   };
 
   constructor(private mysteryObjectService: MysteryObjectService) { }

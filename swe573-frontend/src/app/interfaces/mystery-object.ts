@@ -25,6 +25,14 @@ export interface MysteryObject {
     sizeY: number;
     sizeZ: number;
     weight: number;
-    itemCondition: string;  // Enum: NEW, LIKE_NEW, USED, DAMAGED, ANTIQUE
+    item_condition: ItemCondition;  // Enum: NEW, LIKE_NEW, USED, DAMAGED, ANTIQUE
+  }
+
+  export enum ItemCondition {
+    NEW = 'NEW',
+    LIKE_NEW = 'LIKE_NEW',
+    USED = 'USED',
+    DAMAGED = 'DAMAGED',
+    ANTIQUE = 'ANTIQUE'
   }
   
