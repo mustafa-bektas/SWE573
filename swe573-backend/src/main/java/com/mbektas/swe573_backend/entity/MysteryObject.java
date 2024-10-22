@@ -100,4 +100,8 @@ public class MysteryObject {
         DAMAGED,
         ANTIQUE
     }
+
+    @Lob
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
+    private byte[] image;
 }

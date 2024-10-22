@@ -6,168 +6,175 @@
       <div class="card-body">
         <form (ngSubmit)="createMysteryObject()">
           
-          <!-- Description -->
-          <div class="form-group mb-3">
-            <label for="description" class="form-label">Description:</label>
-            <input type="text" [(ngModel)]="mysteryObject.description" name="description" id="description" class="form-control" required>
-          </div>
-  
-          <!-- Written Text -->
-          <div class="form-group mb-3">
-            <label for="writtenText" class="form-label">Written Text:</label>
-            <input type="text" [(ngModel)]="mysteryObject.writtenText" name="writtenText" id="writtenText" class="form-control" required>
-          </div>
-  
-          <!-- Color -->
-          <div class="form-group mb-3">
-            <label for="color" class="form-label">Color:</label>
-            <input type="text" [(ngModel)]="mysteryObject.color" name="color" id="color" class="form-control" required>
-          </div>
-  
-          <!-- Shape -->
-          <div class="form-group mb-3">
-            <label for="shape" class="form-label">Shape:</label>
-            <input type="text" [(ngModel)]="mysteryObject.shape" name="shape" id="shape" class="form-control" required>
-          </div>
-  
-          <!-- Description of Parts -->
-          <div class="form-group mb-3">
-            <label for="descriptionOfParts" class="form-label">Description of Parts:</label>
-            <input type="text" [(ngModel)]="mysteryObject.descriptionOfParts" name="descriptionOfParts" id="descriptionOfParts" class="form-control" required>
-          </div>
-  
-          <!-- Location -->
-          <div class="form-group mb-3">
-            <label for="location" class="form-label">Location:</label>
-            <input type="text" [(ngModel)]="mysteryObject.location" name="location" id="location" class="form-control" required>
-          </div>
-  
-          <!-- Hardness -->
-          <div class="form-group mb-3">
-            <label for="hardness" class="form-label">Hardness:</label>
-            <input type="text" [(ngModel)]="mysteryObject.hardness" name="hardness" id="hardness" class="form-control" required>
-          </div>
-  
-          <!-- Time Period -->
-          <div class="form-group mb-3">
-            <label for="timePeriod" class="form-label">Time Period:</label>
-            <input type="text" [(ngModel)]="mysteryObject.timePeriod" name="timePeriod" id="timePeriod" class="form-control" required>
-          </div>
-  
-          <!-- Smell -->
-          <div class="form-group mb-3">
-            <label for="smell" class="form-label">Smell:</label>
-            <input type="text" [(ngModel)]="mysteryObject.smell" name="smell" id="smell" class="form-control" required>
-          </div>
-  
-          <!-- Taste -->
-          <div class="form-group mb-3">
-            <label for="taste" class="form-label">Taste:</label>
-            <input type="text" [(ngModel)]="mysteryObject.taste" name="taste" id="taste" class="form-control" required>
-          </div>
-  
-          <!-- Texture -->
-          <div class="form-group mb-3">
-            <label for="texture" class="form-label">Texture:</label>
-            <input type="text" [(ngModel)]="mysteryObject.texture" name="texture" id="texture" class="form-control" required>
-          </div>
-  
-          <!-- Value -->
-          <div class="form-group mb-3">
-            <label for="value" class="form-label">Value:</label>
-            <input type="number" [(ngModel)]="mysteryObject.value" name="value" id="value" class="form-control" required>
-          </div>
-  
-          <!-- Origin of Acquisition -->
-          <div class="form-group mb-3">
-            <label for="originOfAcquisition" class="form-label">Origin of Acquisition:</label>
-            <input type="text" [(ngModel)]="mysteryObject.originOfAcquisition" name="originOfAcquisition" id="originOfAcquisition" class="form-control" required>
-          </div>
-  
-          <!-- Pattern -->
-          <div class="form-group mb-3">
-            <label for="pattern" class="form-label">Pattern:</label>
-            <input type="text" [(ngModel)]="mysteryObject.pattern" name="pattern" id="pattern" class="form-control" required>
-          </div>
-  
-          <!-- Brand -->
-          <div class="form-group mb-3">
-            <label for="brand" class="form-label">Brand:</label>
-            <input type="text" [(ngModel)]="mysteryObject.brand" name="brand" id="brand" class="form-control" required>
-          </div>
-  
-          <!-- Print -->
-          <div class="form-group mb-3">
-            <label for="print" class="form-label">Print:</label>
-            <input type="text" [(ngModel)]="mysteryObject.print" name="print" id="print" class="form-control" required>
-          </div>
-  
-          <!-- Functionality -->
-          <div class="form-group mb-3">
-            <label for="functionality" class="form-label">Functionality:</label>
-            <input type="text" [(ngModel)]="mysteryObject.functionality" name="functionality" id="functionality" class="form-control" required>
-          </div>
-  
-          <!-- Image Licenses -->
-          <div class="form-group mb-3">
-            <label for="imageLicenses" class="form-label">Image Licenses:</label>
-            <input type="text" [(ngModel)]="mysteryObject.imageLicenses" name="imageLicenses" id="imageLicenses" class="form-control" required>
-          </div>
-  
-          <!-- Markings -->
-          <div class="form-group mb-3">
-            <label for="markings" class="form-label">Markings:</label>
-            <input type="text" [(ngModel)]="mysteryObject.markings" name="markings" id="markings" class="form-control" required>
-          </div>
-  
-          <!-- Handmade -->
-          <div class="form-group form-check mb-3">
-            <input type="checkbox" [(ngModel)]="mysteryObject.handmade" name="handmade" id="handmade" class="form-check-input">
-            <label for="handmade" class="form-check-label">Handmade</label>
-          </div>
-  
-          <!-- One of a Kind -->
-          <div class="form-group form-check mb-3">
-            <input type="checkbox" [(ngModel)]="mysteryObject.oneOfAKind" name="oneOfAKind" id="oneOfAKind" class="form-check-input">
-            <label for="oneOfAKind" class="form-check-label">One of a Kind</label>
-          </div>
-  
-          <!-- Size X -->
-          <div class="form-group mb-3">
-            <label for="sizeX" class="form-label">Size X (Width in cm):</label>
-            <input type="number" [(ngModel)]="mysteryObject.sizeX" name="sizeX" id="sizeX" class="form-control" required>
-          </div>
-  
-          <!-- Size Y -->
-          <div class="form-group mb-3">
-            <label for="sizeY" class="form-label">Size Y (Depth in cm):</label>
-            <input type="number" [(ngModel)]="mysteryObject.sizeY" name="sizeY" id="sizeY" class="form-control" required>
-          </div>
-  
-          <!-- Size Z -->
-          <div class="form-group mb-3">
-            <label for="sizeZ" class="form-label">Size Z (Height in cm):</label>
-            <input type="number" [(ngModel)]="mysteryObject.sizeZ" name="sizeZ" id="sizeZ" class="form-control" required>
-          </div>
-  
-          <!-- Weight -->
-          <div class="form-group mb-3">
-            <label for="weight" class="form-label">Weight (grams):</label>
-            <input type="number" [(ngModel)]="mysteryObject.weight" name="weight" id="weight" class="form-control" required>
-          </div>
-  
-          <!-- Condition -->
-          <div class="form-group mb-3">
-            <label for="item_condition" class="form-label">Condition:</label>
-            <select [(ngModel)]="mysteryObject.item_condition" name="itemCondition" id="itemCondition" class="form-select" required>
-              <option value="NEW">NEW</option>
-              <option value="LIKE_NEW">LIKE NEW</option>
-              <option value="USED">USED</option>
-              <option value="DAMAGED">DAMAGED</option>
-              <option value="ANTIQUE">ANTIQUE</option>
-            </select>
-          </div>
-  
+            <!-- Description -->
+            <div class="form-group mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <input type="text" [(ngModel)]="mysteryObject.description" name="description" id="description" class="form-control" required>
+            </div>
+    
+            <!-- Written Text -->
+            <div class="form-group mb-3">
+                <label for="writtenText" class="form-label">Written Text:</label>
+                <input type="text" [(ngModel)]="mysteryObject.writtenText" name="writtenText" id="writtenText" class="form-control" required>
+            </div>
+    
+            <!-- Color -->
+            <div class="form-group mb-3">
+                <label for="color" class="form-label">Color:</label>
+                <input type="text" [(ngModel)]="mysteryObject.color" name="color" id="color" class="form-control" required>
+            </div>
+    
+            <!-- Shape -->
+            <div class="form-group mb-3">
+                <label for="shape" class="form-label">Shape:</label>
+                <input type="text" [(ngModel)]="mysteryObject.shape" name="shape" id="shape" class="form-control" required>
+            </div>
+    
+            <!-- Description of Parts -->
+            <div class="form-group mb-3">
+                <label for="descriptionOfParts" class="form-label">Description of Parts:</label>
+                <input type="text" [(ngModel)]="mysteryObject.descriptionOfParts" name="descriptionOfParts" id="descriptionOfParts" class="form-control" required>
+            </div>
+    
+            <!-- Location -->
+            <div class="form-group mb-3">
+                <label for="location" class="form-label">Location:</label>
+                <input type="text" [(ngModel)]="mysteryObject.location" name="location" id="location" class="form-control" required>
+            </div>
+    
+            <!-- Hardness -->
+            <div class="form-group mb-3">
+                <label for="hardness" class="form-label">Hardness:</label>
+                <input type="text" [(ngModel)]="mysteryObject.hardness" name="hardness" id="hardness" class="form-control" required>
+            </div>
+    
+            <!-- Time Period -->
+            <div class="form-group mb-3">
+                <label for="timePeriod" class="form-label">Time Period:</label>
+                <input type="text" [(ngModel)]="mysteryObject.timePeriod" name="timePeriod" id="timePeriod" class="form-control" required>
+            </div>
+    
+            <!-- Smell -->
+            <div class="form-group mb-3">
+                <label for="smell" class="form-label">Smell:</label>
+                <input type="text" [(ngModel)]="mysteryObject.smell" name="smell" id="smell" class="form-control" required>
+            </div>
+    
+            <!-- Taste -->
+            <div class="form-group mb-3">
+                <label for="taste" class="form-label">Taste:</label>
+                <input type="text" [(ngModel)]="mysteryObject.taste" name="taste" id="taste" class="form-control" required>
+            </div>
+    
+            <!-- Texture -->
+            <div class="form-group mb-3">
+                <label for="texture" class="form-label">Texture:</label>
+                <input type="text" [(ngModel)]="mysteryObject.texture" name="texture" id="texture" class="form-control" required>
+            </div>
+    
+            <!-- Value -->
+            <div class="form-group mb-3">
+                <label for="value" class="form-label">Value:</label>
+                <input type="number" [(ngModel)]="mysteryObject.value" name="value" id="value" class="form-control" required>
+            </div>
+    
+            <!-- Origin of Acquisition -->
+            <div class="form-group mb-3">
+                <label for="originOfAcquisition" class="form-label">Origin of Acquisition:</label>
+                <input type="text" [(ngModel)]="mysteryObject.originOfAcquisition" name="originOfAcquisition" id="originOfAcquisition" class="form-control" required>
+            </div>
+    
+            <!-- Pattern -->
+            <div class="form-group mb-3">
+                <label for="pattern" class="form-label">Pattern:</label>
+                <input type="text" [(ngModel)]="mysteryObject.pattern" name="pattern" id="pattern" class="form-control" required>
+            </div>
+    
+            <!-- Brand -->
+            <div class="form-group mb-3">
+                <label for="brand" class="form-label">Brand:</label>
+                <input type="text" [(ngModel)]="mysteryObject.brand" name="brand" id="brand" class="form-control" required>
+            </div>
+    
+            <!-- Print -->
+            <div class="form-group mb-3">
+                <label for="print" class="form-label">Print:</label>
+                <input type="text" [(ngModel)]="mysteryObject.print" name="print" id="print" class="form-control" required>
+            </div>
+    
+            <!-- Functionality -->
+            <div class="form-group mb-3">
+                <label for="functionality" class="form-label">Functionality:</label>
+                <input type="text" [(ngModel)]="mysteryObject.functionality" name="functionality" id="functionality" class="form-control" required>
+            </div>
+    
+            <!-- Image Licenses -->
+            <div class="form-group mb-3">
+                <label for="imageLicenses" class="form-label">Image Licenses:</label>
+                <input type="text" [(ngModel)]="mysteryObject.imageLicenses" name="imageLicenses" id="imageLicenses" class="form-control" required>
+            </div>
+    
+            <!-- Markings -->
+            <div class="form-group mb-3">
+                <label for="markings" class="form-label">Markings:</label>
+                <input type="text" [(ngModel)]="mysteryObject.markings" name="markings" id="markings" class="form-control" required>
+            </div>
+    
+            <!-- Handmade -->
+            <div class="form-group form-check mb-3">
+                <input type="checkbox" [(ngModel)]="mysteryObject.handmade" name="handmade" id="handmade" class="form-check-input">
+                <label for="handmade" class="form-check-label">Handmade</label>
+            </div>
+    
+            <!-- One of a Kind -->
+            <div class="form-group form-check mb-3">
+                <input type="checkbox" [(ngModel)]="mysteryObject.oneOfAKind" name="oneOfAKind" id="oneOfAKind" class="form-check-input">
+                <label for="oneOfAKind" class="form-check-label">One of a Kind</label>
+            </div>
+    
+            <!-- Size X -->
+            <div class="form-group mb-3">
+                <label for="sizeX" class="form-label">Size X (Width in cm):</label>
+                <input type="number" [(ngModel)]="mysteryObject.sizeX" name="sizeX" id="sizeX" class="form-control" required>
+            </div>
+    
+            <!-- Size Y -->
+            <div class="form-group mb-3">
+                <label for="sizeY" class="form-label">Size Y (Depth in cm):</label>
+                <input type="number" [(ngModel)]="mysteryObject.sizeY" name="sizeY" id="sizeY" class="form-control" required>
+            </div>
+    
+            <!-- Size Z -->
+            <div class="form-group mb-3">
+                <label for="sizeZ" class="form-label">Size Z (Height in cm):</label>
+                <input type="number" [(ngModel)]="mysteryObject.sizeZ" name="sizeZ" id="sizeZ" class="form-control" required>
+            </div>
+    
+            <!-- Weight -->
+            <div class="form-group mb-3">
+                <label for="weight" class="form-label">Weight (grams):</label>
+                <input type="number" [(ngModel)]="mysteryObject.weight" name="weight" id="weight" class="form-control" required>
+            </div>
+    
+            <!-- Condition -->
+            <div class="form-group mb-3">
+                <label for="item_condition" class="form-label">Condition:</label>
+                <select [(ngModel)]="mysteryObject.item_condition" name="itemCondition" id="itemCondition" class="form-select" required>
+                <option value="NEW">NEW</option>
+                <option value="LIKE_NEW">LIKE NEW</option>
+                <option value="USED">USED</option>
+                <option value="DAMAGED">DAMAGED</option>
+                <option value="ANTIQUE">ANTIQUE</option>
+                </select>
+            </div>
+
+          
+            <!-- File input for image -->
+            <div class="form-group mb-3">
+                <label for="image" class="form-label">Upload Image:</label>
+                <input type="file" (change)="onFileSelected($event)" class="form-control" id="image" name="image" />
+            </div>
+              
           <!-- Submit Button -->
           <button type="submit" class="btn btn-primary">Create Mystery Object</button>
         </form>
