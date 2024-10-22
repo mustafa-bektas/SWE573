@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e75082fb-e035-479c-9e39-c426a234b1dc" name="Changes" comment="#4 - created MysteryObject entity">
-      <change afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/dao/MysteryObjectRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/entity/MysteryObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b03a27e7-3fbb-472b-9e86-090533cda237.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b03a27e7-3fbb-472b-9e86-090533cda237.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/config/MyDataRestConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swe573-backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/dao/MysteryObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/dao/MysteryObjectRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-frontend/tsconfig.spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-frontend/tsconfig.spec.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,29 +32,36 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="mustafa &lt;mb.gamedev0506@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "mustafa-bektas"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mustafa-bektas&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/mustafa-bektas/SWE573.git",
-    "accountId": "c6612cf7-eb13-4b62-abe2-bf09fb312bf1"
+    "accountId": "687b497a-33f0-4da0-b01e-59d9d6d991ec"
   }
 }]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2nkzLXnliWFU5OxiXNbdaedwnks" />
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -67,6 +80,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Swe573BackendApplication.executor": "Run",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -114,6 +128,7 @@
       <option name="presentableId" value="Default" />
       <updated>1729531808110</updated>
       <workItem from="1729531810099" duration="4456000" />
+      <workItem from="1729614143298" duration="3781000" />
     </task>
     <task id="LOCAL-00001" summary="#2 - missing files added">
       <option name="closed" value="true" />
@@ -131,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729536638120</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="#4 - created MysteryObject entity">
+      <option name="closed" value="true" />
+      <created>1729614228477</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729614228477</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
