@@ -4,15 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e75082fb-e035-479c-9e39-c426a234b1dc" name="Changes" comment="#2 - missing files added">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="e75082fb-e035-479c-9e39-c426a234b1dc" name="Changes" comment="#4 - created MysteryObject entity">
+      <change afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/dao/MysteryObjectRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swe573-backend/src/main/java/com/mbektas/swe573_backend/entity/MysteryObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b03a27e7-3fbb-472b-9e86-090533cda237.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b03a27e7-3fbb-472b-9e86-090533cda237.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swe573-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/swe573-backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/swe573-backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,11 +40,17 @@
     "accountId": "c6612cf7-eb13-4b62-abe2-bf09fb312bf1"
   }
 }]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "customColor": "",
   "associatedIndex": 0
 }]]></component>
   <component name="ProjectId" id="2nkzLXnliWFU5OxiXNbdaedwnks" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,6 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Maven.swe573-backend [compile].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -65,6 +83,11 @@
     ]
   }
 }]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn compile" />
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="Swe573BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="swe573-backend" />
@@ -90,7 +113,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1729531808110</updated>
-      <workItem from="1729531810099" duration="1785000" />
+      <workItem from="1729531810099" duration="4456000" />
     </task>
     <task id="LOCAL-00001" summary="#2 - missing files added">
       <option name="closed" value="true" />
@@ -100,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729532119373</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="#3 - added aws database connection">
+      <option name="closed" value="true" />
+      <created>1729536638119</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729536638120</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +139,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="#2 - missing files added" />
-    <option name="LAST_COMMIT_MESSAGE" value="#2 - missing files added" />
+    <MESSAGE value="#3 - added aws database connection" />
+    <MESSAGE value="#4 - created MysteryObject entity" />
+    <option name="LAST_COMMIT_MESSAGE" value="#4 - created MysteryObject entity" />
   </component>
 </project>
