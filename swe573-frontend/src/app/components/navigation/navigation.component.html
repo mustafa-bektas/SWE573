@@ -10,6 +10,9 @@
           <a class="nav-link" routerLink="/register">Register</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn | async">
+          <a class="nav-link" routerLink="/mystery-object">Add Mystery Object</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn | async">
           <a class="nav-link" (click)="logout()">Logout</a>
         </li>
       </ul>
