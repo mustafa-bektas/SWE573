@@ -108,6 +108,6 @@ export class PostCreationComponent {
     formData.append('image', this.mysteryObjectImage!);
 
     // Send the image to the /upload-image endpoint and return the observable
-    return this.http.post(`http://localhost:8080/api/mysteryObjects/${objectId}/upload-image`, formData);
+    return this.http.post(`https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects/${objectId}/upload-image`, formData);
   }
 }

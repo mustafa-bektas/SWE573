@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';  // Update with your backend URL
+  private apiUrl = 'https://swe573-backend-594781402587.us-central1.run.app/api/auth';  // Update with your backend URL
   private tokenKey = 'authToken';
 
   // Observable to track login status

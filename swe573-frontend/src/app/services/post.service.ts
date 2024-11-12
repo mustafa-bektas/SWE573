@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = 'http://localhost:8080/api/posts';
+  private apiUrl = 'https://swe573-backend-594781402587.us-central1.run.app/api/posts';
 
   constructor(private http: HttpClient) {}
 

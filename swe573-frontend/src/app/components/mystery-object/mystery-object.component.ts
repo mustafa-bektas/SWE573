@@ -59,7 +59,7 @@ export class MysteryObjectComponent {
         console.log('Mystery Object created:', response);
         const objectId = response.id;  // Assume that the backend returns the created object's ID
         console.log('Object ID:', objectId);
-  
+
         // After the object is created, upload the image
         if (this.selectedFile) {
           this.uploadImage(objectId);  // Call image upload method
@@ -72,16 +72,16 @@ export class MysteryObjectComponent {
         console.log('Mystery Object creation process complete');
       }
     };
-  
+
     // Perform the HTTP POST request to create the object
-    this.http.post('http://localhost:8080/api/mysteryObjects', this.mysteryObject).subscribe(observer);
+    this.http.post('https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects', this.mysteryObject).subscribe(observer);
   }
-  
+
 
   uploadImage(objectId: number): void {
     const formData = new FormData();
     formData.append('image', this.selectedFile!);
-  
+
     const observer = {
       next: (response: any) => {
         console.log('Image uploaded successfully:', response);
@@ -93,9 +93,9 @@ export class MysteryObjectComponent {
         console.log('Image upload process complete');
       }
     };
-  
+
     // Send the image to the /upload-image endpoint
-    this.http.post(`http://localhost:8080/api/mysteryObjects/${objectId}/upload-image`, formData)
+    this.http.post(`https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects/${objectId}/upload-image`, formData)
       .subscribe(observer);
-  }  
+  }
 }

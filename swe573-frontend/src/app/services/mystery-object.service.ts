@@ -8,7 +8,7 @@ import { MysteryObject } from '../interfaces/mystery-object';
 })
 export class MysteryObjectService {
 
-  private baseUrl = 'http://localhost:8080/api/mysteryObjects';  // Spring Boot API URL
+  private baseUrl = 'https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects';  // Spring Boot API URL
 
   constructor(private http: HttpClient) { }
 
@@ -21,5 +21,5 @@ export class MysteryObjectService {
   getAllMysteryObjects(): Observable<MysteryObject[]> {
     return this.http.get<MysteryObject[]>(`${this.baseUrl}`);
   }
-  
+
 }
