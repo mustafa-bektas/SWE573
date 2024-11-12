@@ -60,7 +60,8 @@ public class SecurityConfig {
                 .cors(customizer -> customizer.configurationSource(corsConfigurationSource())) // Apply CORS configuration
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Allow public access to login and register
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Allow access to Swagger
+                        .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
+                        .requestMatchers("api/posts/create").permitAll()// Allow access to Swagger
                         .anyRequest().authenticated() // All other requests need authentication
                 )
                 .sessionManagement(sessionManagement ->

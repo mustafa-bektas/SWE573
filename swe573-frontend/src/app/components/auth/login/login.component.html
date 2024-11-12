@@ -1,12 +1,29 @@
-<h2>Login</h2>
-<form (ngSubmit)="login()">
-  <div>
-    <label>Email:</label>
-    <input type="email" [(ngModel)]="credentials.email" name="email" required>
+<div class="container d-flex justify-content-center align-items-center h-75">
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-4">Login</h2>
+
+    <form (ngSubmit)="login()">
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="credentials.email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" class="form-control" [(ngModel)]="credentials.password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <!-- Login Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+
+    <!-- Optional Footer for Returning Users -->
+    <div class="text-center mt-3">
+      <small>Don't have an account? <a routerLink="/register" class="text-primary">Register here</a></small>
+    </div>
   </div>
-  <div>
-    <label>Password:</label>
-    <input type="password" [(ngModel)]="credentials.password" name="password" required>
-  </div>
-  <button type="submit">Login</button>
-</form>
+</div>

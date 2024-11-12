@@ -4,8 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClient, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import { MysteryObjectComponent } from './components/mystery-object/mystery-object.component';
-import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbAccordionModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
@@ -17,14 +17,22 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './services/auth.guard';
 import {NonAuthGuard} from './services/non-auth.guard';
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import { PostCreationComponent } from './components/post-creation/post-creation.component';
+import { MysteryObjectModalComponent } from './components/mystery-object-modal/mystery-object-modal.component';
+import {MatDialogModule, MatDialogTitle} from '@angular/material/dialog';
+import { PostListComponent } from './components/post-list/post-list.component';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
 
 // Define routes for each component
 const routes: Routes = [
-  { path: '', component: WelcomeComponent }, // Welcome page as the default route
+  { path: '', redirectTo: '/posts', pathMatch: 'full' }, // Welcome page as the default route
   { path: 'login', component: LoginComponent, canActivate: [NonAuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [NonAuthGuard] },
   { path: 'mystery-object', component: MysteryObjectComponent, canActivate: [AuthGuard] },
+  { path: 'create-post', component: PostCreationComponent, canActivate: [AuthGuard] }, // Add route for Post Creation
+  { path: 'posts', component: PostListComponent, canActivate: [AuthGuard] },
+  { path: 'post/:id', component: PostDetailsComponent, canActivate: [AuthGuard] },
+
   // other routes...
 ];
 
@@ -36,7 +44,10 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     NavigationComponent,
-    WelcomeComponent
+    PostCreationComponent,
+    MysteryObjectModalComponent,
+    PostListComponent,
+    PostDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +56,12 @@ const routes: Routes = [
     NgbModule,
     MatIconModule,
     MatProgressBarModule,
-    RouterModule.forRoot(routes) // Configure the router with the defined routes
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule,
+    MatDialogTitle,
+    MatDialogModule,
+    NgbAccordionModule
+    // Configure the router with the defined routes
   ],
   providers: [
     AuthGuard,

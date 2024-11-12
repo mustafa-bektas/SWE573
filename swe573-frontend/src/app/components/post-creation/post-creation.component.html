@@ -1,0 +1,78 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4">Create New Post</h2>
+
+  <!-- Post Form -->
+  <form [formGroup]="postForm" (ngSubmit)="createPost()" class="p-4 shadow-lg rounded bg-light">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input id="title" formControlName="title" class="form-control" placeholder="Enter the post title" />
+    </div>
+
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <textarea id="content" formControlName="content" class="form-control" rows="3" placeholder="Write your content here"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="tags" class="form-label">Tags</label>
+      <input id="tags" formControlName="tags" class="form-control" placeholder="Add tags separated by commas" />
+    </div>
+
+    <!-- Button to add or edit Mystery Object -->
+    <div class="d-flex justify-content-end mb-4">
+      <button type="button" (click)="openMysteryObjectModal()" class="btn btn-outline-secondary">
+        <i class="bi bi-plus-lg"></i> {{ mysteryObject ? 'Edit Mystery Object' : 'Add Mystery Object' }}
+      </button>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Create Post</button>
+  </form>
+
+  <!-- Display Mystery Object Details -->
+  <div *ngIf="mysteryObject" class="mt-5 p-4 shadow-lg rounded bg-light">
+    <h3 class="text-center">Mystery Object Details</h3>
+    <!-- Image Preview -->
+    <div *ngIf="mysteryObjectImage" class="text-center mb-4">
+      <img [src]="imagePreviewUrl" alt="Mystery Object Image" class="img-fluid" style="max-height: 300px; max-width: 100%;" />
+    </div>
+    
+    <div class="row g-3">
+      <div class="col-md-6">
+        <p><strong>Description:</strong> {{ mysteryObject.description }}</p>
+        <p><strong>Written Text:</strong> {{ mysteryObject.writtenText }}</p>
+        <p><strong>Color:</strong> {{ mysteryObject.color }}</p>
+        <p><strong>Shape:</strong> {{ mysteryObject.shape }}</p>
+        <p><strong>Description of Parts:</strong> {{ mysteryObject.descriptionOfParts }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Location:</strong> {{ mysteryObject.location }}</p>
+        <p><strong>Hardness:</strong> {{ mysteryObject.hardness }}</p>
+        <p><strong>Time Period:</strong> {{ mysteryObject.timePeriod }}</p>
+        <p><strong>Smell:</strong> {{ mysteryObject.smell }}</p>
+        <p><strong>Taste:</strong> {{ mysteryObject.taste }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Texture:</strong> {{ mysteryObject.texture }}</p>
+        <p><strong>Value:</strong> {{ mysteryObject.value }}</p>
+        <p><strong>Origin of Acquisition:</strong> {{ mysteryObject.originOfAcquisition }}</p>
+        <p><strong>Pattern:</strong> {{ mysteryObject.pattern }}</p>
+        <p><strong>Brand:</strong> {{ mysteryObject.brand }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Print:</strong> {{ mysteryObject.print }}</p>
+        <p><strong>Functionality:</strong> {{ mysteryObject.functionality }}</p>
+        <p><strong>Image Licenses:</strong> {{ mysteryObject.imageLicenses }}</p>
+        <p><strong>Markings:</strong> {{ mysteryObject.markings }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Handmade:</strong> {{ mysteryObject.handmade }}</p>
+        <p><strong>One of a Kind:</strong> {{ mysteryObject.oneOfAKind }}</p>
+        <p><strong>Size:</strong> {{ mysteryObject.sizeX + ", " + mysteryObject.sizeY + ", " + mysteryObject.sizeZ }}</p>
+        <p><strong>Weight:</strong> {{ mysteryObject.weight }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Item Condition:</strong> {{ mysteryObject.itemCondition }}</p>
+      </div>
+    </div>
+  </div>
+</div>

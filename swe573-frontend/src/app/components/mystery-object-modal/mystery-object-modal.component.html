@@ -1,0 +1,168 @@
+<div class="modal show d-block" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 70vw; max-width: none;">
+    <div class="modal-content p-4 shadow-lg rounded bg-light" style="max-height: 80vh; overflow-y: auto;">
+      <h2 class="text-center mb-4">Add Mystery Object</h2>
+
+    <form [formGroup]="mysteryObjectForm" (ngSubmit)="save()">
+      <!-- First Row of Inputs -->
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="description" class="form-label">Description</label>
+          <input id="description" formControlName="description" class="form-control" placeholder="Enter a description" />
+        </div>
+        <div class="col-md-6">
+          <label for="writtenText" class="form-label">Written Text</label>
+          <input id="writtenText" formControlName="writtenText" class="form-control" placeholder="Enter written text" />
+        </div>
+      </div>
+
+      <!-- Additional rows for fields -->
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <label for="color" class="form-label">Color</label>
+          <input id="color" formControlName="color" class="form-control" placeholder="Color" />
+        </div>
+        <div class="col-md-4">
+          <label for="shape" class="form-label">Shape</label>
+          <input id="shape" formControlName="shape" class="form-control" placeholder="Shape" />
+        </div>
+        <div class="col-md-4">
+          <label for="hardness" class="form-label">Hardness</label>
+          <input id="hardness" formControlName="hardness" class="form-control" placeholder="Hardness" />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-6">
+          <label for="descriptionOfParts" class="form-label">Description of Parts</label>
+          <input id="descriptionOfParts" formControlName="descriptionOfParts" class="form-control" placeholder="Parts description" />
+        </div>
+        <div class="col-md-6">
+          <label for="location" class="form-label">Location</label>
+          <input id="location" formControlName="location" class="form-control" placeholder="Location" />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <label for="timePeriod" class="form-label">Time Period</label>
+          <input id="timePeriod" formControlName="timePeriod" class="form-control" placeholder="Time Period" />
+        </div>
+        <div class="col-md-4">
+          <label for="smell" class="form-label">Smell</label>
+          <input id="smell" formControlName="smell" class="form-control" placeholder="Smell" />
+        </div>
+        <div class="col-md-4">
+          <label for="taste" class="form-label">Taste</label>
+          <input id="taste" formControlName="taste" class="form-control" placeholder="Taste" />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-6">
+          <label for="texture" class="form-label">Texture</label>
+          <input id="texture" formControlName="texture" class="form-control" placeholder="Texture" />
+        </div>
+        <div class="col-md-6">
+          <label for="value" class="form-label">Value</label>
+          <input id="value" formControlName="value" type="number" class="form-control" placeholder="Value" />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-6">
+          <label for="originOfAcquisition" class="form-label">Origin of Acquisition</label>
+          <input id="originOfAcquisition" formControlName="originOfAcquisition" class="form-control" placeholder="Origin of Acquisition" />
+        </div>
+        <div class="col-md-6">
+          <label for="pattern" class="form-label">Pattern</label>
+          <input id="pattern" formControlName="pattern" class="form-control" placeholder="Pattern" />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <label for="brand" class="form-label">Brand</label>
+          <input id="brand" formControlName="brand" class="form-control" placeholder="Brand" />
+        </div>
+        <div class="col-md-4">
+          <label for="print" class="form-label">Print</label>
+          <input id="print" formControlName="print" class="form-control" placeholder="Print" />
+        </div>
+        <div class="col-md-4">
+          <label for="functionality" class="form-label">Functionality</label>
+          <input id="functionality" formControlName="functionality" class="form-control" placeholder="Functionality" />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-6">
+          <label for="imageLicenses" class="form-label">Image Licenses</label>
+          <input id="imageLicenses" formControlName="imageLicenses" class="form-control" placeholder="Image Licenses" />
+        </div>
+        <div class="col-md-6">
+          <label for="markings" class="form-label">Markings</label>
+          <input id="markings" formControlName="markings" class="form-control" placeholder="Markings" />
+        </div>
+      </div>
+
+      <!-- Checkbox Inputs -->
+      <div class="row g-3 mt-3">
+        <div class="col-md-6 form-check form-switch">
+          <input id="handmade" formControlName="handmade" type="checkbox" class="form-check-input" />
+          <label for="handmade" class="form-check-label">Handmade</label>
+        </div>
+        <div class="col-md-6 form-check form-switch">
+          <input id="oneOfAKind" formControlName="oneOfAKind" type="checkbox" class="form-check-input" />
+          <label for="oneOfAKind" class="form-check-label">One of a Kind</label>
+        </div>
+      </div>
+
+      <!-- Image Upload and Select for Condition -->
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="itemCondition" class="form-label">Condition</label>
+          <select id="itemCondition" formControlName="itemCondition" class="form-select">
+            <option value="NEW">New</option>
+            <option value="LIKE_NEW">Like New</option>
+            <option value="USED">Used</option>
+            <option value="DAMAGED">Damaged</option>
+            <option value="ANTIQUE">Antique</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="image" class="form-label">Upload Image</label>
+          <input type="file" (change)="onFileSelected($event)" class="form-control btn btn-primary" id="image" name="image" />
+        </div>
+      </div>
+
+      <!-- Row for Numerical Inputs (Size and Weight) -->
+      <div class="row g-3 mt-3">
+        <div class="col-md-4">
+          <label for="sizeX" class="form-label">Size X (cm)</label>
+          <input id="sizeX" formControlName="sizeX" type="number" class="form-control" placeholder="Size X" />
+        </div>
+        <div class="col-md-4">
+          <label for="sizeY" class="form-label">Size Y (cm)</label>
+          <input id="sizeY" formControlName="sizeY" type="number" class="form-control" placeholder="Size Y" />
+        </div>
+        <div class="col-md-4">
+          <label for="sizeZ" class="form-label">Size Z (cm)</label>
+          <input id="sizeZ" formControlName="sizeZ" type="number" class="form-control" placeholder="Size Z" />
+        </div>
+        <div class="col-md-4 mt-3">
+          <label for="weight" class="form-label">Weight (grams)</label>
+          <input id="weight" formControlName="weight" type="number" class="form-control" placeholder="Weight" />
+        </div>
+      </div>
+
+      <!-- Submit and Cancel Buttons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="button" (click)="close()" class="btn btn-outline-danger me-2">Cancel</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
