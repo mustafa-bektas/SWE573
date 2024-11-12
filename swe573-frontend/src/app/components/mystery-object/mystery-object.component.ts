@@ -3,6 +3,7 @@ import { ItemCondition, MysteryObject } from '../../interfaces/mystery-object';
 import { MysteryObjectService } from '../../services/mystery-object.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { finalize, Subscription } from 'rxjs';
+import {baseApiUrl} from '../../app.module';
 
 @Component({
   selector: 'app-mystery-object',
@@ -95,7 +96,7 @@ export class MysteryObjectComponent {
     };
 
     // Send the image to the /upload-image endpoint
-    this.http.post(`https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects/${objectId}/upload-image`, formData)
+    this.http.post(`${baseApiUrl}/api/mysteryObjects/${objectId}/upload-image`, formData)
       .subscribe(observer);
   }
 }

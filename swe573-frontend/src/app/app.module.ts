@@ -30,12 +30,13 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NonAuthGuard] },
   { path: 'mystery-object', component: MysteryObjectComponent, canActivate: [AuthGuard] },
   { path: 'create-post', component: PostCreationComponent, canActivate: [AuthGuard] }, // Add route for Post Creation
-  { path: 'posts', component: PostListComponent, canActivate: [AuthGuard] },
-  { path: 'post/:id', component: PostDetailsComponent, canActivate: [AuthGuard] },
-
+  { path: 'posts', component: PostListComponent },
+  { path: 'post/:id', component: PostDetailsComponent },
   // other routes...
 ];
 
+//export const baseApiUrl = 'https://swe573-backend-594781402587.us-central1.run.app';
+export const baseApiUrl = 'http://localhost:8080';
 
 @NgModule({
   declarations: [

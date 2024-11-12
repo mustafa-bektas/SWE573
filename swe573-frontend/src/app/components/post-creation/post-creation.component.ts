@@ -6,6 +6,7 @@ import { MysteryObjectModalComponent } from '../mystery-object-modal/mystery-obj
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import {baseApiUrl} from '../../app.module';
 
 @Component({
   selector: 'app-post-creation',
@@ -108,6 +109,6 @@ export class PostCreationComponent {
     formData.append('image', this.mysteryObjectImage!);
 
     // Send the image to the /upload-image endpoint and return the observable
-    return this.http.post(`https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects/${objectId}/upload-image`, formData);
+    return this.http.post(`${baseApiUrl}/api/mysteryObjects/${objectId}/upload-image`, formData);
   }
 }

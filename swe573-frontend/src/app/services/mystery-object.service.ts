@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MysteryObject } from '../interfaces/mystery-object';
+import {baseApiUrl} from '../app.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MysteryObjectService {
 
-  private baseUrl = 'https://swe573-backend-594781402587.us-central1.run.app/api/mysteryObjects';  // Spring Boot API URL
+  private baseUrl = `${baseApiUrl}/api/mysteryObjects`;  // Spring Boot API URL
 
   constructor(private http: HttpClient) { }
 

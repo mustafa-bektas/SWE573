@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {baseApiUrl} from '../app.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://swe573-backend-594781402587.us-central1.run.app/api/auth';  // Update with your backend URL
+  private apiUrl = `${baseApiUrl}/api/auth`;  // Update with your backend URL
   private tokenKey = 'authToken';
 
   // Observable to track login status

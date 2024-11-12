@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { baseApiUrl } from '../app.module'
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = 'https://swe573-backend-594781402587.us-central1.run.app/api/posts';
+  private apiUrl = `${baseApiUrl}/api/posts`;
 
   constructor(private http: HttpClient) {}
 
