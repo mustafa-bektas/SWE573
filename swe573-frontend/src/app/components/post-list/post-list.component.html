@@ -1,4 +1,10 @@
-<div class="container my-5">
+<div *ngIf="loading" class="spinner-container d-flex justify-content-center align-items-center my-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!loading" class="container my-5">
   <h1 class="text-center mb-4">Mysteries</h1>
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
