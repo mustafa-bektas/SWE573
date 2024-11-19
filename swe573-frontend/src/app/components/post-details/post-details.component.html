@@ -64,19 +64,50 @@
     </div>
   </div>
 
+  <!-- Add Comment -->
+  <div class="card shadow mb-4">
+    <div class="card-header">
+      <h3>Add a Comment</h3>
+    </div>
+    <div class="card-body">
+      <textarea [(ngModel)]="commentContent" class="form-control mb-2" rows="3" placeholder="Write your comment here..."></textarea>
+      <button (click)="submitComment()" class="btn btn-primary">Submit Comment</button>
+    </div>
+  </div>
+
   <!-- Comments Section -->
   <div class="card shadow">
     <div class="card-header">
       <h3>Comments</h3>
     </div>
     <div class="card-body">
-      <p *ngIf="!comments || comments.length === 0" class="text-muted">No comments available.</p>
-      <ul *ngIf="comments && comments.length > 0" class="list-group list-group-flush">
+      <p *ngIf="comments.length === 0" class="text-muted">No comments yet. Be the first to comment!</p>
+      <ul *ngIf="comments.length > 0" class="list-group list-group-flush">
         <li *ngFor="let comment of comments" class="list-group-item">
-          <p><strong>{{ comment.author }}</strong> - <small class="text-muted">{{ comment.date | date }}</small></p>
-          <p>{{ comment.content }}</p>
+          <div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.content }}</p>
+            <!-- Reply Button -->
+            <button class="btn btn-link" (click)="replyContentMap[comment.id] = replyContentMap[comment.id] || ''">Reply</button>
+          </div>
+
+          <!-- Nested Replies -->
+          <ul *ngIf="comment.replies.length > 0" class="list-group list-group-flush">
+            <li *ngFor="let reply of comment.replies" class="list-group-item ms-4">
+              <strong>{{ reply.author }}</strong>
+              <p>{{ reply.content }}</p>
+            </li>
+          </ul>
+
+          <!-- Reply Input Field -->
+          <div *ngIf="replyContentMap[comment.id] !== undefined" class="mt-3">
+            <textarea [(ngModel)]="replyContentMap[comment.id]" class="form-control mb-2" rows="2" placeholder="Write your reply here..."></textarea>
+            <button (click)="submitReply(comment.id)" class="btn btn-primary">Submit Reply</button>
+          </div>
+
         </li>
       </ul>
     </div>
   </div>
 </div>
+

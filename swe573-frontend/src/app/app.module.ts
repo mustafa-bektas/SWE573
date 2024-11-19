@@ -35,8 +35,8 @@ const routes: Routes = [
   // other routes...
 ];
 
-export const baseApiUrl = 'https://swe573-backend-594781402587.us-central1.run.app';
-//export const baseApiUrl = 'http://localhost:8080';
+//export const baseApiUrl = 'https://swe573-backend-594781402587.us-central1.run.app';
+export const baseApiUrl = 'http://localhost:8080';
 
 @NgModule({
   declarations: [
