@@ -13,4 +13,16 @@ public class CommentDetailsDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<CommentDetailsDto> replies; // Nested replies
+
+    public CommentDetailsDto(Long id, String content, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt, List<CommentDetailsDto> replies) {
+        this.id = id;
+        this.content = content;
+        this.author = authorName;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.replies = replies;
+    }
+
+    public CommentDetailsDto() {
+    }
 }

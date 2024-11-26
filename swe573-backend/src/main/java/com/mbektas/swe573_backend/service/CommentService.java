@@ -11,6 +11,7 @@ import com.mbektas.swe573_backend.entity.User;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,35 @@ public class CommentService {
 
     public List<CommentDetailsDto> getCommentsForPost(Long postId) {
         List<Comment> comments = commentRepository.findByPostId(postId);
-        return comments.stream().map(comment -> modelMapper.map(comment, CommentDetailsDto.class)).toList();
+
+        List<CommentDetailsDto> commentDetailsDtos = new ArrayList<>();
+        for (var comment : comments) {
+            if (comment.getParentComment() == null)
+            {
+                commentDetailsDtos.add(mapCommentToDto(comment));
+            }
+        }
+
+        return commentDetailsDtos;
+    }
+
+    private CommentDetailsDto mapCommentToDto(Comment comment) {
+        // Map the top-level comment
+        var authorName = comment.getUser().getUsername();
+
+        // Recursively map replies
+        var replies = comment.getReplies().stream()
+                .map(this::mapCommentToDto) // Recursive mapping
+                .toList();
+
+        // Return the mapped DTO
+        return new CommentDetailsDto(
+                comment.getId(),
+                comment.getContent(),
+                authorName,
+                comment.getCreatedAt(),
+                comment.getUpdatedAt(),
+                replies
+        );
     }
 }

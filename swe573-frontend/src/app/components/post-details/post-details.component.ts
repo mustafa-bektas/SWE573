@@ -11,9 +11,9 @@ import { CommentService } from '../../services/comment.service';
 export class PostDetailsComponent implements OnInit {
   post: any;
   comments: any[] = [];
-  loading = true; // Loading state variable
-  commentContent: string = ''; // Content for new post comment
-  replyContentMap: { [commentId: number]: string } = {}; // Track reply content for each comment
+  loading = true; // Loading state
+  commentContent: string = ''; // Top-level comment content
+  replyContentMap: { [commentId: number]: string } = {}; // Map for reply content per comment
 
   constructor(
     private route: ActivatedRoute,
@@ -27,12 +27,12 @@ export class PostDetailsComponent implements OnInit {
       this.postService.getPostById(postId).subscribe(
         data => {
           this.post = data;
-          this.loading = false; // Set loading to false after data is loaded
-          this.loadComments(postId); // Load comments when post data is loaded
+          this.loading = false;
+          this.loadComments(postId); // Load comments
         },
         error => {
           console.error('Error loading post details:', error);
-          this.loading = false; // Set loading to false even if there’s an error
+          this.loading = false;
         }
       );
     }
@@ -54,13 +54,13 @@ export class PostDetailsComponent implements OnInit {
       const commentData = {
         content: this.commentContent,
         postId: this.post.id,
-        parentCommentId: null // Top-level comment
+        parentCommentId: null // Indicates a top-level comment
       };
 
       this.commentService.createComment(commentData).subscribe(
         () => {
-          this.commentContent = ''; // Clear the input field
-          this.loadComments(this.post.id); // Reload comments to include the new comment
+          this.commentContent = ''; // Clear input
+          this.loadComments(this.post.id); // Reload comments
         },
         error => {
           console.error('Error submitting comment:', error);
@@ -81,6 +81,7 @@ export class PostDetailsComponent implements OnInit {
       this.commentService.createComment(replyData).subscribe(
         () => {
           this.replyContentMap[parentCommentId] = ''; // Clear the reply input field
+          delete this.replyContentMap[parentCommentId]; // Remove the entry to close the reply text box
           this.loadComments(this.post.id); // Reload comments to include the new reply
         },
         error => {
