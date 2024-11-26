@@ -31,8 +31,8 @@ public class CommentService {
         this.modelMapper = modelMapper;
     }
 
-    public Map<String, Long> createComment(CommentCreateDto commentCreateDto, String username) {
-        User user = userRepository.findByUsername(username).orElseThrow();
+    public Map<String, Long> createComment(CommentCreateDto commentCreateDto, String email) {
+        User user = userRepository.findByEmail(email).orElseThrow();
         Post post = postRepository.findById(commentCreateDto.getPostId()).orElseThrow();
 
         Comment parentComment = null;
