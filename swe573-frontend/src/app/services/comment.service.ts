@@ -18,4 +18,12 @@ export class CommentService {
   createComment(commentData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create`, commentData);
   }
+
+  upvoteComment(commentId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/upvote/${commentId}`, {});
+  }
+
+  downvoteComment(commentId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/downvote/${commentId}`, {});
+  }
 }

@@ -35,4 +35,16 @@ public class CommentController {
         List<CommentDetailsDto> comments = commentService.getCommentsForPost(postId);
         return ResponseEntity.ok(comments);
     }
+
+    @PostMapping("/upvote/{commentId}")
+    public ResponseEntity<Map<String, Long>> upvoteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetails userDetails) {
+        Map<String, Long> response = commentService.upvoteComment(commentId, userDetails.getUsername());
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/downvote/{commentId}")
+    public ResponseEntity<Map<String, Long>> downvoteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetails userDetails) {
+        Map<String, Long> response = commentService.downvoteComment(commentId, userDetails.getUsername());
+        return ResponseEntity.ok(response);
+    }
 }

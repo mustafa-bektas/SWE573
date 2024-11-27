@@ -112,41 +112,67 @@
   <ng-container *ngFor="let comment of comments">
     <li class="list-group-item">
       <div>
-        <div class="d-flex align-items-center mb-2">
-          <strong class="comment-author me-2">{{ comment.author }}</strong>
-          <small class="text-muted">
-            <i class="bi bi-clock me-1"></i>
-            {{ comment.createdAt | date:'short' }}
-          </small>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <strong class="comment-author me-2">{{ comment.author }}</strong>
+            <small class="text-muted">
+              <i class="bi bi-clock me-1"></i>
+              {{ comment.createdAt | date:'short' }}
+            </small>
+          </div>
+
+          <!-- Voting Buttons -->
+          <div class="d-flex align-items-center">
+            <button
+              class="btn btn-sm me-2 d-flex align-items-center"
+              [ngClass]="comment.userUpvoted ? 'btn-success' : 'btn-outline-success'"
+              (click)="upvoteComment(comment.id)"
+              [disabled]="pendingVotes.has(comment.id)"
+            >
+              <i class="bi bi-arrow-up me-1"></i>
+              {{ comment.upvotes || 0 }}
+            </button>
+            <button
+              class="btn btn-sm d-flex align-items-center"
+              [ngClass]="comment.userDownvoted ? 'btn-danger' : 'btn-outline-danger'"
+              (click)="downvoteComment(comment.id)"
+              [disabled]="pendingVotes.has(comment.id)"
+            >
+              <i class="bi bi-arrow-down me-1"></i>
+              {{ comment.downvotes || 0 }}
+            </button>
+          </div>
         </div>
+
         <p class="mb-1">{{ comment.content }}</p>
+
         <!-- Stylish Reply Button -->
         <button
-          class="btn btn-outline-primary btn-sm rounded-pill d-inline-flex align-items-center"
+          class="btn btn-outline-primary btn-sm rounded-pill d-inline-flex align-items-center mt-2"
           (click)="replyContentMap[comment.id] = replyContentMap[comment.id] || ''">
           <i class="bi bi-reply-fill me-1"></i> Reply
         </button>
-      </div>
 
-      <!-- Reply Input Field -->
-      <div *ngIf="replyContentMap[comment.id] !== undefined" class="mt-2">
-        <textarea
-          [(ngModel)]="replyContentMap[comment.id]"
-          class="form-control mb-1"
-          rows="2"
-          placeholder="Write your reply...">
-        </textarea>
-        <button
-          (click)="submitReply(comment.id)"
-          class="btn btn-primary btn-sm rounded-pill">
-          Submit Reply
-        </button>
-      </div>
+        <!-- Reply Input Field -->
+        <div *ngIf="replyContentMap[comment.id] !== undefined" class="mt-2">
+          <textarea
+            [(ngModel)]="replyContentMap[comment.id]"
+            class="form-control mb-1"
+            rows="2"
+            placeholder="Write your reply...">
+          </textarea>
+          <button
+            (click)="submitReply(comment.id)"
+            class="btn btn-primary btn-sm rounded-pill">
+            Submit Reply
+          </button>
+        </div>
 
-      <!-- Nested Replies -->
-      <ul *ngIf="comment.replies?.length > 0" class="list-group list-group-flush nested-comments">
-        <ng-container *ngTemplateOutlet="commentTemplate; context: { $implicit: comment.replies }"></ng-container>
-      </ul>
+        <!-- Nested Replies -->
+        <ul *ngIf="comment.replies?.length > 0" class="list-group list-group-flush nested-comments">
+          <ng-container *ngTemplateOutlet="commentTemplate; context: { $implicit: comment.replies }"></ng-container>
+        </ul>
+      </div>
     </li>
   </ng-container>
 </ng-template>
