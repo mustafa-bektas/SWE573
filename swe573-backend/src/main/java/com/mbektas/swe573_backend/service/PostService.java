@@ -8,9 +8,13 @@ import com.mbektas.swe573_backend.dto.PostDetailsDto;
 import com.mbektas.swe573_backend.dto.PostListDto;
 import com.mbektas.swe573_backend.entity.MysteryObject;
 import com.mbektas.swe573_backend.entity.Post;
+import com.mbektas.swe573_backend.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -67,10 +71,94 @@ public class PostService {
         return posts;
     }
 
-    public PostDetailsDto getPostDetails(Long postId) {
-        PostDetailsDto post = postRepository.findPostDetailsById(postId);
+    public Map<String, Long> upvotePost(Long postId, String email) {
+        User user = userRepository.findByEmail(email).orElseThrow();
+        Post post = postRepository.findById(postId).orElseThrow();
+
+        if (post.getUpvotedBy().contains(user)) {
+            post.getUpvotedBy().remove(user);
+            post.setUpvotesCount(post.getUpvotesCount() - 1);
+        } else {
+            post.getUpvotedBy().add(user);
+            post.setUpvotesCount(post.getUpvotesCount() + 1);
+
+            if (post.getDownvotedBy().contains(user)) {
+                post.getDownvotedBy().remove(user);
+                post.setDownvotesCount(post.getDownvotesCount() - 1);
+            }
+        }
+
+        postRepository.save(post);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("postId", post.getId());
+
+        return response;
+    }
+
+    public Map<String, Long> downvotePost(Long postId, String email) {
+        User user = userRepository.findByEmail(email).orElseThrow();
+        Post post = postRepository.findById(postId).orElseThrow();
+
+        if (post.getDownvotedBy().contains(user)) {
+            post.getDownvotedBy().remove(user);
+            post.setDownvotesCount(post.getDownvotesCount() - 1);
+        } else {
+            post.getDownvotedBy().add(user);
+            post.setDownvotesCount(post.getDownvotesCount() + 1);
+
+            if (post.getUpvotedBy().contains(user)) {
+                post.getUpvotedBy().remove(user);
+                post.setUpvotesCount(post.getUpvotesCount() - 1);
+            }
+        }
+
+        postRepository.save(post);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("postId", post.getId());
+
+        return response;
+    }
+
+    public PostDetailsDto getPostDetails(Long postId, String email) {
+        User user = email != null ? userRepository.findByEmail(email).orElseThrow() : null;
+        Post post = postRepository.findPostDetailsById(postId);
+        if (post == null) {
+            throw new ResourceNotFoundException("Post not found with ID: " + postId);
+        }
+
         Set<String> tags = postRepository.findTagsByPostId(postId);
-        post.setTags(tags);
-        return post;
+
+        PostDetailsDto postDetailsDto = new PostDetailsDto();
+        mapPostToDto(post, tags, postDetailsDto, user);
+
+        return postDetailsDto;
+    }
+
+    private void mapPostToDto(Post post, Set<String> tags, PostDetailsDto postDetailsDto, User currentUser) {
+        postDetailsDto.setId(post.getId());
+        postDetailsDto.setAuthor(post.getUser().getUsername());
+        postDetailsDto.setTitle(post.getTitle());
+        postDetailsDto.setDescription(post.getDescription());
+        postDetailsDto.setTags(tags);
+        postDetailsDto.setMysteryObject(post.getMysteryObject());
+        postDetailsDto.setCreatedAt(post.getCreatedAt());
+        postDetailsDto.setUpdatedAt(post.getUpdatedAt());
+        postDetailsDto.setUpvotes(post.getUpvotesCount());
+        postDetailsDto.setDownvotes(post.getDownvotesCount());
+
+        if (currentUser == null) {
+            postDetailsDto.setUserUpvoted(false);
+            postDetailsDto.setUserDownvoted(false);
+            return;
+        }
+
+        // Check if the user has upvoted or downvoted the post
+        boolean userUpvoted = post.getUpvotedBy().contains(currentUser);
+        boolean userDownvoted = post.getDownvotedBy().contains(currentUser);
+
+        postDetailsDto.setUserUpvoted(userUpvoted);
+        postDetailsDto.setUserDownvoted(userDownvoted);
     }
 }

@@ -19,11 +19,12 @@ public interface PostRepository  extends JpaRepository<Post, Long> {
             "LEFT JOIN p.mysteryObject mo")
     Page<PostListDto> findAllForPostList(Pageable pageable);
 
-    @Query("SELECT new com.mbektas.swe573_backend.dto.PostDetailsDto(p.id, p.title, p.description, mo ) " +
+    @Query("SELECT p " +
             "FROM Post p " +
-            "LEFT JOIN p.mysteryObject mo " +
+            "LEFT JOIN FETCH p.mysteryObject mo " +
             "WHERE p.id = :id")
-    PostDetailsDto findPostDetailsById(Long id);
+    Post findPostDetailsById(Long id);
+
 
     @Query("SELECT p.tags FROM Post p WHERE p.id = :postId")
     Set<String> findTagsByPostId(@Param("postId") Long postId);

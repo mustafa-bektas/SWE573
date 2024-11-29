@@ -40,8 +40,21 @@ public class PostController {
     }
 
     @GetMapping("/getForPostDetails/{postId}")
-    public ResponseEntity<PostDetailsDto> getPostDetails(@PathVariable Long postId) {
-        PostDetailsDto postDetailsDto = postService.getPostDetails(postId);
+    public ResponseEntity<PostDetailsDto> getPostDetails(@PathVariable Long postId, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails != null ? userDetails.getUsername() : null;
+        PostDetailsDto postDetailsDto = postService.getPostDetails(postId, username);
         return ResponseEntity.ok(postDetailsDto);
+    }
+
+    @PostMapping("/upvote/{postId}")
+    public ResponseEntity<Map<String, Long>> upvotePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails userDetails) {
+        Map<String, Long> response = postService.upvotePost(postId, userDetails.getUsername());
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/downvote/{postId}")
+    public ResponseEntity<Map<String, Long>> downvotePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails userDetails) {
+        Map<String, Long> response = postService.downvotePost(postId, userDetails.getUsername());
+        return ResponseEntity.ok(response);
     }
 }

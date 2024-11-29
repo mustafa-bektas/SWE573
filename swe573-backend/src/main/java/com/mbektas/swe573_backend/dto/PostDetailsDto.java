@@ -3,20 +3,41 @@ package com.mbektas.swe573_backend.dto;
 import com.mbektas.swe573_backend.entity.MysteryObject;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
 public class PostDetailsDto {
     private Long id;
+    private String author;
     private String title;
     private String description;
     private Set<String> tags;
     private MysteryObject mysteryObject;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public PostDetailsDto(Long id, String title, String description, MysteryObject mysteryObject) {
+    private int upvotes;
+    private int downvotes;
+
+    private boolean userUpvoted;
+    private boolean userDownvoted;
+
+    public PostDetailsDto(Long id, String author, String title, String description, Set<String> tags, MysteryObject mysteryObject, LocalDateTime createdAt, LocalDateTime updatedAt, int upvotes, int downvotes, boolean userUpvoted, boolean userDownvoted) {
         this.id = id;
+        this.author = author;
         this.title = title;
         this.description = description;
+        this.tags = tags;
         this.mysteryObject = mysteryObject;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.userUpvoted = userUpvoted;
+        this.userDownvoted = userDownvoted;
+    }
+
+    public PostDetailsDto() {
     }
 }

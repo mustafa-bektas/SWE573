@@ -8,6 +8,8 @@ import com.mbektas.swe573_backend.dto.CommentDetailsDto;
 import com.mbektas.swe573_backend.entity.Comment;
 import com.mbektas.swe573_backend.entity.Post;
 import com.mbektas.swe573_backend.entity.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -55,14 +57,15 @@ public class CommentService {
         return response;
     }
 
-    public List<CommentDetailsDto> getCommentsForPost(Long postId) {
+    public List<CommentDetailsDto> getCommentsForPost(Long postId, String email) {
         List<Comment> comments = commentRepository.findByPostId(postId);
+        User user = email != null ? userRepository.findByEmail(email).orElseThrow() : null;
 
         List<CommentDetailsDto> commentDetailsDtos = new ArrayList<>();
         for (var comment : comments) {
             if (comment.getParentComment() == null)
             {
-                commentDetailsDtos.add(mapCommentToDto(comment, comment.getUser()));
+                commentDetailsDtos.add(mapCommentToDto(comment, user));
             }
         }
 
@@ -128,8 +131,8 @@ public class CommentService {
     }
 
     private CommentDetailsDto mapCommentToDto(Comment comment, User currentUser) {
-        boolean userUpvoted = comment.getUpvotedBy().contains(currentUser);
-        boolean userDownvoted = comment.getDownvotedBy().contains(currentUser);
+        boolean userUpvoted = currentUser != null ? comment.getUpvotedBy().contains(currentUser) : false;
+        boolean userDownvoted = currentUser != null ? comment.getDownvotedBy().contains(currentUser) : false;
 
         return new CommentDetailsDto(
                 comment.getId(),

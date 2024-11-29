@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { CommentService } from '../../services/comment.service';
+import {AuthService} from '../../services/auth.service';
 
 interface Comment {
   id: number;
@@ -26,18 +27,20 @@ export class PostDetailsComponent implements OnInit {
   loading = true;
   commentContent: string = '';
   replyContentMap: { [commentId: number]: string } = {};
-
-  // Track pending votes to prevent multiple simultaneous votes
   pendingVotes: Set<number> = new Set();
+  pendingPostVote = false;
+  isLoggedIn = false;
 
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
     private postService: PostService,
     private commentService: CommentService
   ) {}
 
   ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('id');
+    this.isLoggedIn = this.authService.isLoggedIn.value;
     if (postId) {
       this.postService.getPostById(postId).subscribe(
         data => {
@@ -107,47 +110,36 @@ export class PostDetailsComponent implements OnInit {
   }
 
   upvoteComment(commentId: number): void {
-    // Prevent multiple simultaneous votes
     if (this.pendingVotes.has(commentId)) return;
 
-    // Find the comment to update
     const commentToUpdate = this.findCommentById(this.comments, commentId);
     if (!commentToUpdate) return;
 
-    // Optimistic UI update
     const wasUpvoted = commentToUpdate.userUpvoted;
     const wasDownvoted = commentToUpdate.userDownvoted;
 
     if (wasUpvoted) {
-      // If already upvoted, remove upvote
       commentToUpdate.userUpvoted = false;
       commentToUpdate.upvotes--;
     } else {
-      // Add upvote
       commentToUpdate.userUpvoted = true;
       commentToUpdate.upvotes++;
 
-      // Remove downvote if it exists
       if (wasDownvoted) {
         commentToUpdate.userDownvoted = false;
         commentToUpdate.downvotes--;
       }
     }
 
-    // Track pending vote
     this.pendingVotes.add(commentId);
 
-    // Send vote to server
     this.commentService.upvoteComment(commentId).subscribe(
       () => {
-        // Successful vote
         this.pendingVotes.delete(commentId);
       },
       error => {
-        // Rollback UI changes on error
         console.error('Error upvoting comment:', error);
 
-        // Revert the optimistic update
         if (commentToUpdate) {
           commentToUpdate.userUpvoted = wasUpvoted;
           commentToUpdate.userDownvoted = wasDownvoted;
@@ -178,15 +170,12 @@ export class PostDetailsComponent implements OnInit {
     const wasUpvoted = commentToUpdate.userUpvoted;
 
     if (wasDownvoted) {
-      // If already downvoted, remove downvote
       commentToUpdate.userDownvoted = false;
       commentToUpdate.downvotes--;
     } else {
-      // Add downvote
       commentToUpdate.userDownvoted = true;
       commentToUpdate.downvotes++;
 
-      // Remove upvote if it exists
       if (wasUpvoted) {
         commentToUpdate.userUpvoted = false;
         commentToUpdate.upvotes--;
@@ -222,11 +211,98 @@ export class PostDetailsComponent implements OnInit {
     );
   }
 
-  cancelReply(commentId: number): void {
-    delete this.replyContentMap[commentId];
+  upvotePost(): void {
+    if (this.pendingPostVote) return;
+
+    const wasUpvoted = this.post.userUpvoted;
+    const wasDownvoted = this.post.userDownvoted;
+
+    if (wasUpvoted) {
+      this.post.userUpvoted = false;
+      this.post.upvotes--;
+    } else {
+      this.post.userUpvoted = true;
+      this.post.upvotes++;
+
+      if (wasDownvoted) {
+        this.post.userDownvoted = false;
+        this.post.downvotes--;
+      }
+    }
+
+    this.pendingPostVote = true;
+
+    this.postService.upvotePost(this.post.id).subscribe(
+      () => {
+        this.pendingPostVote = false;
+      },
+      error => {
+        console.error('Error upvoting post:', error);
+
+        this.post.userUpvoted = wasUpvoted;
+        this.post.userDownvoted = wasDownvoted;
+
+        if (wasUpvoted) {
+          this.post.upvotes--;
+        } else {
+          this.post.upvotes++;
+        }
+
+        if (wasDownvoted) {
+          this.post.downvotes++;
+        }
+
+        this.pendingPostVote = false;
+      }
+    );
   }
 
-  // Recursive function to find a comment by ID in a nested comment structure
+  downvotePost(): void {
+    if (this.pendingPostVote) return;
+
+    const wasDownvoted = this.post.userDownvoted;
+    const wasUpvoted = this.post.userUpvoted;
+
+    if (wasDownvoted) {
+      this.post.userDownvoted = false;
+      this.post.downvotes--;
+    } else {
+      this.post.userDownvoted = true;
+      this.post.downvotes++;
+
+      if (wasUpvoted) {
+        this.post.userUpvoted = false;
+        this.post.upvotes--;
+      }
+    }
+
+    this.pendingPostVote = true;
+
+    this.postService.downvotePost(this.post.id).subscribe(
+      () => {
+        this.pendingPostVote = false;
+      },
+      error => {
+        console.error('Error downvoting post:', error);
+
+        this.post.userDownvoted = wasDownvoted;
+        this.post.userUpvoted = wasUpvoted;
+
+        if (wasDownvoted) {
+          this.post.downvotes--;
+        } else {
+          this.post.downvotes++;
+        }
+
+        if (wasUpvoted) {
+          this.post.upvotes++;
+        }
+
+        this.pendingPostVote = false;
+      }
+    );
+  }
+
   private findCommentById(comments: Comment[], commentId: number): Comment | null {
     for (const comment of comments) {
       if (comment.id === commentId) return comment;

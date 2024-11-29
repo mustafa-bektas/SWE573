@@ -27,4 +27,12 @@ export class PostService {
     return this.http.get<any>(`${this.apiUrl}/getForPostDetails/${postId}`);
   }
 
+  upvotePost(postId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/upvote/${postId}`, {});
+  }
+
+  downvotePost(postId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/downvote/${postId}`, {});
+  }
+
 }

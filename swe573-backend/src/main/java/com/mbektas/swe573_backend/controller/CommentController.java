@@ -31,8 +31,9 @@ public class CommentController {
     }
 
     @GetMapping("/get/{postId}")
-    public ResponseEntity<List<CommentDetailsDto>> getCommentsForPost(@PathVariable Long postId) {
-        List<CommentDetailsDto> comments = commentService.getCommentsForPost(postId);
+    public ResponseEntity<List<CommentDetailsDto>> getCommentsForPost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails != null ? userDetails.getUsername() : null;
+        List<CommentDetailsDto> comments = commentService.getCommentsForPost(postId, username);
         return ResponseEntity.ok(comments);
     }
 
