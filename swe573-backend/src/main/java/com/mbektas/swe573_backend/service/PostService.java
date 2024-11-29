@@ -1,11 +1,13 @@
 package com.mbektas.swe573_backend.service;
 
+import com.mbektas.swe573_backend.dao.CommentRepository;
 import com.mbektas.swe573_backend.dao.MysteryObjectRepository;
 import com.mbektas.swe573_backend.dao.PostRepository;
 import com.mbektas.swe573_backend.dao.UserRepository;
 import com.mbektas.swe573_backend.dto.PostCreationDto;
 import com.mbektas.swe573_backend.dto.PostDetailsDto;
 import com.mbektas.swe573_backend.dto.PostListDto;
+import com.mbektas.swe573_backend.entity.Comment;
 import com.mbektas.swe573_backend.entity.MysteryObject;
 import com.mbektas.swe573_backend.entity.Post;
 import com.mbektas.swe573_backend.entity.User;
@@ -28,11 +30,13 @@ public class PostService {
     private final PostRepository postRepository;
     private final MysteryObjectRepository mysteryObjectRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, MysteryObjectRepository mysteryObjectRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, MysteryObjectRepository mysteryObjectRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.mysteryObjectRepository = mysteryObjectRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Transactional
@@ -134,6 +138,34 @@ public class PostService {
         mapPostToDto(post, tags, postDetailsDto, user);
 
         return postDetailsDto;
+    }
+
+    public boolean markBestAnswer(Long postId, Long commentId, String username) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found."));
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("Comment not found."));
+
+        // Check if the logged-in user is the creator of the post
+        if (!post.getUser().getUsername().equals(username)) {
+            return false; // Not authorized
+        }
+
+        // Mark the comment as the best answer
+        if (post.getBestAnswer() != null) {
+            // Reset the previous best answer
+            Comment previousBestAnswer = post.getBestAnswer();
+            previousBestAnswer.setBestAnswer(false);
+            commentRepository.save(previousBestAnswer);
+        }
+
+        comment.setBestAnswer(true);
+        post.setBestAnswer(comment);
+        post.setSolved(true);
+
+        // Save the updated entities
+        commentRepository.save(comment);
+        postRepository.save(post);
+
+        return true;
     }
 
     private void mapPostToDto(Post post, Set<String> tags, PostDetailsDto postDetailsDto, User currentUser) {

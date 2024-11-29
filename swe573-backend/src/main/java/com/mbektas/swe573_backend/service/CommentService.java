@@ -146,7 +146,8 @@ public class CommentService {
                 comment.getUpvotesCount(),
                 comment.getDownvotesCount(),
                 userUpvoted,
-                userDownvoted
+                userDownvoted,
+                comment.isBestAnswer()
         );
     }
 }

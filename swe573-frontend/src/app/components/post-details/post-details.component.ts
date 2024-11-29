@@ -13,6 +13,7 @@ interface Comment {
   downvotes: number;
   userUpvoted: boolean;
   userDownvoted: boolean;
+  bestAnswer: boolean;
   replies?: Comment[];
 }
 
@@ -47,6 +48,9 @@ export class PostDetailsComponent implements OnInit {
           this.post = data;
           this.loading = false;
           this.loadComments(postId);
+          if(this.post.author === localStorage.getItem('userName')){
+            this.post.isAuthor = true;
+          }
         },
         error => {
           console.error('Error loading post details:', error);
@@ -58,8 +62,12 @@ export class PostDetailsComponent implements OnInit {
 
   loadComments(postId: string): void {
     this.commentService.getCommentsForPost(postId).subscribe(
-      data => {
-        this.comments = data;
+      (data: Comment[]) => {
+        // Place the best answer at the top, if it exists
+        const bestAnswer = data.find(comment => comment.bestAnswer);
+        this.comments = bestAnswer
+          ? [bestAnswer, ...data.filter(comment => !comment.bestAnswer)]
+          : data;
       },
       error => {
         console.error('Error loading comments:', error);
@@ -302,6 +310,26 @@ export class PostDetailsComponent implements OnInit {
       }
     );
   }
+
+  markBestAnswer(commentId: number): void {
+    this.postService.markBestAnswer(commentId, this.post.id).subscribe(
+      () => {
+        this.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.bestAnswer = true;
+          } else {
+            comment.bestAnswer = false;
+          }
+        });
+        this.post.solved = true; // Mark the post as solved
+        this.loadComments(this.post.id);
+      },
+      error => {
+        console.error('Error marking best answer:', error);
+      }
+    );
+  }
+
 
   private findCommentById(comments: Comment[], commentId: number): Comment | null {
     for (const comment of comments) {

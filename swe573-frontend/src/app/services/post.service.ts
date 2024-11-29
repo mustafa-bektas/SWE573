@@ -35,4 +35,7 @@ export class PostService {
     return this.http.post<any>(`${this.apiUrl}/downvote/${postId}`, {});
   }
 
+  markBestAnswer(commentId: number, postId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${postId}/markBestAnswer/${commentId}`, {});
+  }
 }

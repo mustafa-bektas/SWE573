@@ -57,4 +57,16 @@ public class PostController {
         Map<String, Long> response = postService.downvotePost(postId, userDetails.getUsername());
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{postId}/markBestAnswer/{commentId}")
+    public ResponseEntity<Map<String, Long>> markBestAnswer(@PathVariable Long postId, @PathVariable Long commentId, @AuthenticationPrincipal UserDetails userDetails) {
+        boolean success = postService.markBestAnswer(postId, commentId, userDetails.getUsername());
+        if (success) {
+            Map<String, Long> response = Map.of("postId", postId, "commentId", commentId);
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, Long> response = Map.of("postId", postId, "commentId", commentId);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+    }
 }

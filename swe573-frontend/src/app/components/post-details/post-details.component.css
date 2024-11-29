@@ -157,3 +157,21 @@ textarea.form-control:focus {
     padding-left: 15px;
   }
 }
+
+/* Highlight the best answer badge */
+.badge.bg-warning.text-dark {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  font-weight: 600;
+}
+
+/* Add spacing for the mark as best answer button */
+.btn-outline-warning {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: black;
+}
+

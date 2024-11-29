@@ -14,6 +14,7 @@ export class AuthService {
 
   // Observable to track login status
   public isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  public userName = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,6 +31,8 @@ export class AuthService {
         if (token) {
           localStorage.setItem(this.tokenKey, token); // Store token as a string
           this.isLoggedIn.next(true); // Update login status
+          this.userName = credentials.email;
+          localStorage.setItem('userName', this.userName);
         }
       })
     );

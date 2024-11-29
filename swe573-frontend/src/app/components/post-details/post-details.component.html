@@ -8,8 +8,17 @@
   <!-- Post Title and Details -->
   <div class="card mb-4">
     <div class="card-header">
-      <h2 class="mb-0">{{ post.title }}</h2>
-      <small class="text-muted">{{ post.date | date:'mediumDate' }}</small>
+      <div class="d-flex justify-content-between align-items-start">
+        <h2 class="mb-0">{{ post.title }}</h2>
+        <div class="text-end">
+          <small class="text-muted d-block">
+            <strong>By</strong> {{ post.author }}
+          </small>
+          <small class="text-muted">
+            {{ post.createdAt | date:'mediumDate' }}
+          </small>
+        </div>
+      </div>
     </div>
     <div class="card-body">
       <p>{{ post.description }}</p>
@@ -166,7 +175,16 @@
           </div>
         </div>
 
-        <p class="mb-1">{{ comment.content }}</p>
+        <p class="mb-1">
+          {{ comment.content }}
+          <!-- Best Answer Badge -->
+          <span
+            *ngIf="comment.bestAnswer"
+            class="badge bg-warning text-dark ms-2"
+          >
+            Best Answer
+          </span>
+        </p>
 
         <!-- Stylish Reply Button -->
         <button
@@ -174,6 +192,15 @@
           class="btn btn-outline-primary btn-sm rounded-pill d-inline-flex align-items-center mt-2"
           (click)="replyContentMap[comment.id] = replyContentMap[comment.id] || ''">
           <i class="bi bi-reply-fill me-1"></i> Reply
+        </button>
+
+        <!-- Mark as Best Answer Button -->
+        <button
+          *ngIf="post.isAuthor && !comment.bestAnswer"
+          class="btn btn-outline-warning btn-sm rounded-pill d-inline-flex align-items-center mt-2"
+          (click)="markBestAnswer(comment.id)"
+        >
+          <i class="bi bi-award-fill me-1"></i> Mark as Best Answer
         </button>
 
         <!-- Reply Input Field -->

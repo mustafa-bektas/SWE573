@@ -68,4 +68,7 @@ public class Post {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private boolean solved = false;
 }
