@@ -69,4 +69,10 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
         }
     }
+
+    @GetMapping("/searchForPosts")
+    public ResponseEntity<Page<PostListDto>> searchPosts(@RequestParam("q") String query, Pageable pageable) {
+        Page<PostListDto> searchResults = postService.searchPosts(query, pageable);
+        return ResponseEntity.ok(searchResults);
+    }
 }

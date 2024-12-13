@@ -19,10 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PostService {
@@ -166,6 +163,16 @@ public class PostService {
         postRepository.save(post);
 
         return true;
+    }
+
+    public Page<PostListDto> searchPosts(String keyword, Pageable pageable) {
+        Page<Post> postsPage = postRepository.searchPosts(keyword, pageable);
+        return postsPage.map(post -> {
+            Set<String> tags = postRepository.findTagsByPostId(post.getId());
+            PostListDto postListDto = new PostListDto(post.getId(), post.getTitle(), post.getDescription(), post.getMysteryObject().getImage(), post.isSolved());
+            postListDto.setTags(tags);
+            return postListDto;
+        });
     }
 
     private void mapPostToDto(Post post, Set<String> tags, PostDetailsDto postDetailsDto, User currentUser) {

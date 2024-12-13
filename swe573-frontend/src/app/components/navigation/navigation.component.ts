@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -6,9 +7,18 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  constructor(public authService: AuthService) {}
+  searchQuery: string = '';
+
+  constructor(public authService: AuthService, private router: Router) {}
 
   logout(): void {
     this.authService.logout();
+  }
+
+  performSearch(): void {
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/posts'], { queryParams: { q: this.searchQuery.trim() } });
+      this.searchQuery = ''; // Clear the search input
+    }
   }
 }

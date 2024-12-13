@@ -16,23 +16,39 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
+        <!-- Search Bar -->
+        <li class="nav-item">
+          <div class="d-flex align-items-center">
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="Search posts..."
+              [(ngModel)]="searchQuery"
+              (keyup.enter)="performSearch()"
+            />
+            <button class="btn btn-primary" (click)="performSearch()">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </li>
+
         <!-- Show Login and Register Links if Not Logged In -->
         <li class="nav-item" *ngIf="!(authService.isLoggedIn | async)">
-          <a class="nav-link text-secondary  px-3" routerLink="/login">Login</a>
+          <a class="nav-link text-secondary px-3" routerLink="/login">Login</a>
         </li>
         <li class="nav-item" *ngIf="!(authService.isLoggedIn | async)">
-          <a class="nav-link text-secondary  px-3" routerLink="/register">Register</a>
+          <a class="nav-link text-secondary px-3" routerLink="/register">Register</a>
         </li>
 
         <!-- Show User Options if Logged In -->
         <li class="nav-item" *ngIf="authService.isLoggedIn | async">
-          <a class="nav-link text-secondary  px-3" routerLink="/posts">Home</a>
+          <a class="nav-link text-secondary px-3" routerLink="/posts">Home</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn | async">
-          <a class="nav-link text-secondary  px-3" routerLink="/create-post">Create Post</a>
+          <a class="nav-link text-secondary px-3" routerLink="/create-post">Create Post</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn | async">
-          <a class="nav-link text-danger  px-3" href="" (click)="logout()">Logout</a>
+          <a class="nav-link text-danger px-3" href="" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

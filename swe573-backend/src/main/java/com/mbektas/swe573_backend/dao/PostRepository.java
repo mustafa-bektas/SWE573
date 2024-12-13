@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:4200", "https://swe573-frontend-594781402587.us-central1.run.app"})
@@ -28,4 +29,13 @@ public interface PostRepository  extends JpaRepository<Post, Long> {
 
     @Query("SELECT p.tags FROM Post p WHERE p.id = :postId")
     Set<String> findTagsByPostId(@Param("postId") Long postId);
+
+    @Query("SELECT DISTINCT p FROM Post p " +
+            "LEFT JOIN p.tags tag " +
+            "WHERE FUNCTION('REGEXP_LIKE', LOWER(p.title), CONCAT('\\b', LOWER(:keyword), '\\b')) = true OR " +
+            "FUNCTION('REGEXP_LIKE', LOWER(p.description), CONCAT('\\b', LOWER(:keyword), '\\b')) = true OR " +
+            "FUNCTION('REGEXP_LIKE', LOWER(tag), CONCAT('\\b', LOWER(:keyword), '\\b')) = true")
+    Page<Post> searchPosts(@Param("keyword") String keyword, Pageable pageable);
+
+
 }

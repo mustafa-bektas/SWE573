@@ -38,4 +38,9 @@ export class PostService {
   markBestAnswer(commentId: number, postId: number): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${postId}/markBestAnswer/${commentId}`, {});
   }
+
+  searchPosts(keyword: string, page: number, size: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/searchForPosts?q=${encodeURIComponent(keyword)}&page=${page}&size=${size}`);
+  }
+
 }
