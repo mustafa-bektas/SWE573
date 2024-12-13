@@ -14,7 +14,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:4200", "https://swe573-frontend-594781402587.us-central1.run.app"})
 public interface PostRepository  extends JpaRepository<Post, Long> {
-    @Query("SELECT DISTINCT new com.mbektas.swe573_backend.dto.PostListDto(p.id, p.title, p.description, mo.image) " +
+    @Query("SELECT DISTINCT new com.mbektas.swe573_backend.dto.PostListDto(p.id, p.title, p.description, mo.image, p.solved) " +
             "FROM Post p " +
             "LEFT JOIN p.mysteryObject mo")
     Page<PostListDto> findAllForPostList(Pageable pageable);
