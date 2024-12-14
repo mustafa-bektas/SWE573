@@ -43,8 +43,17 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-        String token = jwtUtil.generateToken(user.getEmail(), user.getId());
+        // Authenticate the user using their email and password
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+        );
+
+        // Retrieve the user from the database to get their full details, including ID
+        User authenticatedUser = userRepository.findByEmail(user.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Generate the token using email and userId
+        String token = jwtUtil.generateToken(authenticatedUser.getEmail(), authenticatedUser.getId());
 
         // Create a JSON response with the token
         Map<String, String> response = new HashMap<>();

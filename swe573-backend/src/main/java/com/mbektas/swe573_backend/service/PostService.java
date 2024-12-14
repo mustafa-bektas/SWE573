@@ -1,9 +1,6 @@
 package com.mbektas.swe573_backend.service;
 
-import com.mbektas.swe573_backend.dao.CommentRepository;
-import com.mbektas.swe573_backend.dao.MysteryObjectRepository;
-import com.mbektas.swe573_backend.dao.PostRepository;
-import com.mbektas.swe573_backend.dao.UserRepository;
+import com.mbektas.swe573_backend.dao.*;
 import com.mbektas.swe573_backend.dto.PostCreationDto;
 import com.mbektas.swe573_backend.dto.PostDetailsDto;
 import com.mbektas.swe573_backend.dto.PostListDto;
@@ -28,12 +25,16 @@ public class PostService {
     private final MysteryObjectRepository mysteryObjectRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final NotificationService notificationService;
+    private final NotificationRepository notificationRepository;
 
-    public PostService(PostRepository postRepository, MysteryObjectRepository mysteryObjectRepository, UserRepository userRepository, CommentRepository commentRepository) {
+    public PostService(PostRepository postRepository, MysteryObjectRepository mysteryObjectRepository, UserRepository userRepository, CommentRepository commentRepository, NotificationService notificationService, NotificationRepository notificationRepository) {
         this.postRepository = postRepository;
         this.mysteryObjectRepository = mysteryObjectRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
+        this.notificationService = notificationService;
+        this.notificationRepository = notificationRepository;
     }
 
     @Transactional
@@ -161,6 +162,9 @@ public class PostService {
         // Save the updated entities
         commentRepository.save(comment);
         postRepository.save(post);
+
+        // Send a notification to the comment author
+        notificationService.sendBestAnswerNotification(comment.getUser().getId(), post, comment);
 
         return true;
     }

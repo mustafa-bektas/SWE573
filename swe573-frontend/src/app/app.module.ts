@@ -48,7 +48,7 @@ export const baseApiUrl = 'http://localhost:8080';
     PostCreationComponent,
     MysteryObjectModalComponent,
     PostListComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
   ],
   imports: [
     BrowserModule,

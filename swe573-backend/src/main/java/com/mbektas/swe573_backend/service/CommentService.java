@@ -26,12 +26,14 @@ public class CommentService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final NotificationService notificationService;
 
-    public CommentService(CommentRepository commentRepository, PostRepository postRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository, UserRepository userRepository, ModelMapper modelMapper, NotificationService notificationService) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.notificationService = notificationService;
     }
 
     public Map<String, Long> createComment(CommentCreateDto commentCreateDto, String email) {
@@ -50,6 +52,9 @@ public class CommentService {
         comment.setParentComment(parentComment);
 
         Comment savedComment = commentRepository.save(comment);
+
+        notificationService.sendCommentNotification(post.getUser().getId(), post, savedComment);
+        notificationService.sendCommentNotification(parentComment.getUser().getId(), post, savedComment);
 
         Map<String, Long> response = new HashMap<>();
         response.put("commentId", savedComment.getId());
@@ -94,6 +99,7 @@ public class CommentService {
         }
 
         commentRepository.save(comment);
+        notificationService.sendUpvoteNotification(comment.getUser().getId(), comment);
 
         Map<String, Long> response = new HashMap<>();
         response.put("commentId", comment.getId());

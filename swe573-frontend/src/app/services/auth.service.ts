@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {baseApiUrl} from '../app.module';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,14 @@ export class AuthService {
   // Retrieve the stored JWT token
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  getUserId(): number | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.userId || null;
+    }
+    return null;
   }
 }

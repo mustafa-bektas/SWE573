@@ -32,6 +32,59 @@
           </div>
         </li>
 
+        <!-- Notifications Dropdown -->
+        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn | async">
+          <a
+            class="nav-link dropdown-toggle position-relative"
+            href="#"
+            id="notificationDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-bell"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              *ngIf="unreadCount > 0"
+            >
+      {{ unreadCount }}
+    </span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+            <li *ngFor="let notification of notifications" class="dropdown-item">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+          <span [class.text-muted]="notification.isRead">
+            {{ notification.message }}
+          </span>
+                </div>
+                <div>
+                  <!-- Go To Post Button -->
+                  <button
+                    class="btn btn-sm btn-outline-primary ms-2"
+                    *ngIf="notification.postId"
+                    (click)="navigateTo(notification)"
+                  >
+                    Go To Post
+                  </button>
+
+                  <!-- Dismiss Button -->
+                  <button
+                    class="btn btn-sm btn-outline-danger ms-2"
+                    (click)="dismissNotification(notification.id); $event.stopPropagation();"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            </li>
+            <li *ngIf="notifications.length === 0">
+              <span class="dropdown-item text-muted">No notifications</span>
+            </li>
+          </ul>
+        </li>
+
+
         <!-- Show Login and Register Links if Not Logged In -->
         <li class="nav-item" *ngIf="!(authService.isLoggedIn | async)">
           <a class="nav-link text-secondary px-3" routerLink="/login">Login</a>
