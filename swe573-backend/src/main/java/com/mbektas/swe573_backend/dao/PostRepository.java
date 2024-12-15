@@ -37,5 +37,5 @@ public interface PostRepository  extends JpaRepository<Post, Long> {
             "FUNCTION('REGEXP_LIKE', LOWER(tag), CONCAT('\\b', LOWER(:keyword), '\\b')) = true")
     Page<Post> searchPosts(@Param("keyword") String keyword, Pageable pageable);
 
-
+    List<Post> findByUserId(Long userId);
 }

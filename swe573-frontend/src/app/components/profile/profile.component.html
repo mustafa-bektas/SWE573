@@ -1,0 +1,119 @@
+<div class="container-fluid profile-container">
+  <div class="row">
+    <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+      <!-- Profile Header -->
+      <div class="card profile-header mb-4 shadow-sm">
+        <div class="card-body d-flex align-items-center">
+          <div class="profile-icon me-4">
+            <i class="bi bi-person-circle fs-1 text-primary"></i>
+          </div>
+          <div>
+            <h1 class="card-title mb-1 fw-bold">My Profile</h1>
+            <p class="text-muted mb-0">View your posts and comments</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Posts Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">
+            <i class="bi bi-file-text me-2 text-primary"></i>
+            My Posts
+          </h2>
+          <span class="badge bg-primary rounded-pill">{{ posts.length }} posts</span>
+        </div>
+        <div class="card-body p-0">
+          <!-- Loading State -->
+          <div *ngIf="loadingPosts" class="text-center p-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading posts...</span>
+            </div>
+          </div>
+
+          <!-- No Posts State -->
+          <div *ngIf="!loadingPosts && posts.length === 0" class="text-center p-4">
+            <i class="bi bi-inbox fs-1 text-muted mb-3"></i>
+            <p class="text-muted">You haven't created any posts yet.</p>
+          </div>
+
+          <!-- Posts List -->
+          <ul *ngIf="!loadingPosts && posts.length > 0" class="list-group list-group-flush">
+            <li *ngFor="let post of posts" class="list-group-item list-group-item-action px-4 py-3">
+              <div class="d-flex w-100 justify-content-between align-items-center">
+                <div class="flex-grow-1">
+                  <div class="d-flex align-items-center mb-2">
+                    <a [routerLink]="['/post', post.id]" class="text-decoration-none me-2">
+                      <h5 class="mb-0 fw-bold text-primary">{{ post.title }}</h5>
+                    </a>
+                    <!-- In the Posts List section, update the tag span -->
+                    <div *ngIf="post.tags && post.tags.length > 0">
+                      <span
+                        *ngFor="let tag of post.tags"
+                        class="badge bg-primary me-1 rounded-pill text-light"
+                      >
+                        {{ tag }}
+                      </span>
+                    </div>
+                  </div>
+                  <p class="text-muted mb-1">{{ post.description }}</p>
+                  <small class="text-muted">
+                    {{ post.createdAt ? formatDate(post.createdAt) : 'No date available' }}
+                  </small>
+                </div>
+                <a [routerLink]="['/post', post.id]" class="btn btn-outline-primary btn-sm">
+                  View <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">
+            <i class="bi bi-chat-left-text me-2 text-secondary"></i>
+            My Comments
+          </h2>
+          <span class="badge bg-secondary rounded-pill">{{ comments.length }} comments</span>
+        </div>
+        <div class="card-body p-0">
+          <!-- Loading State -->
+          <div *ngIf="loadingComments" class="text-center p-4">
+            <div class="spinner-border text-secondary" role="status">
+              <span class="visually-hidden">Loading comments...</span>
+            </div>
+          </div>
+
+          <!-- No Comments State -->
+          <div *ngIf="!loadingComments && comments.length === 0" class="text-center p-4">
+            <i class="bi bi-chat-left fs-1 text-muted mb-3"></i>
+            <p class="text-muted">You haven't made any comments yet.</p>
+          </div>
+
+          <!-- Comments List -->
+          <ul *ngIf="!loadingComments && comments.length > 0" class="list-group list-group-flush">
+            <li *ngFor="let comment of comments" class="list-group-item list-group-item-action px-4 py-3">
+              <div class="d-flex w-100 justify-content-between align-items-center">
+                <div class="flex-grow-1">
+                  <p class="mb-2">{{ comment.content }}</p>
+                  <small class="text-muted">
+                    {{ formatDate(comment.createdAt) }}
+                  </small>
+                </div>
+                <a
+                  [routerLink]="['/post', comment.postId]"
+                  class="btn btn-outline-secondary btn-sm"
+                >
+                  Go to Post <i class="bi bi-box-arrow-up-right ms-1"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

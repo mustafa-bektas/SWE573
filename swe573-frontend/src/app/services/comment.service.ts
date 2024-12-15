@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {baseApiUrl} from '../app.module';
+import { Comment } from '../components/profile/profile.component';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +26,9 @@ export class CommentService {
 
   downvoteComment(commentId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/downvote/${commentId}`, {});
+  }
+
+  getUserComments(userId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${baseApiUrl}/api/auth/${userId}/comments`);
   }
 }

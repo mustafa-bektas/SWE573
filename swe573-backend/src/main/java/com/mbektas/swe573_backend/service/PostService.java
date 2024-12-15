@@ -9,6 +9,7 @@ import com.mbektas.swe573_backend.entity.MysteryObject;
 import com.mbektas.swe573_backend.entity.Post;
 import com.mbektas.swe573_backend.entity.User;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -26,15 +28,15 @@ public class PostService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final NotificationService notificationService;
-    private final NotificationRepository notificationRepository;
+    private final ModelMapper modelMapper;
 
-    public PostService(PostRepository postRepository, MysteryObjectRepository mysteryObjectRepository, UserRepository userRepository, CommentRepository commentRepository, NotificationService notificationService, NotificationRepository notificationRepository) {
+    public PostService(PostRepository postRepository, MysteryObjectRepository mysteryObjectRepository, UserRepository userRepository, CommentRepository commentRepository, NotificationService notificationService, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.mysteryObjectRepository = mysteryObjectRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.notificationService = notificationService;
-        this.notificationRepository = notificationRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Transactional
@@ -203,5 +205,19 @@ public class PostService {
 
         postDetailsDto.setUserUpvoted(userUpvoted);
         postDetailsDto.setUserDownvoted(userDownvoted);
+    }
+
+    public List<PostListDto> getUserPosts(Long userId) {
+        List<Post> posts = postRepository.findByUserId(userId);
+        User currentUser = userRepository.findById(userId).orElseThrow();
+
+        return posts.stream()
+                .map(post -> {
+                    Set<String> tags = postRepository.findTagsByPostId(post.getId());
+                    PostListDto postListDto = new PostListDto(post.getId(), post.getTitle(), post.getDescription(), post.getMysteryObject().getImage(), post.isSolved());
+                    postListDto.setTags(tags);
+                    return postListDto;
+                })
+                .collect(Collectors.toList());
     }
 }

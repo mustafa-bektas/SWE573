@@ -12,4 +12,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     @EntityGraph(attributePaths = {"user", "replies", "upvotedBy", "downvotedBy"})
     List<Comment> findByPostId(Long postId);
+
+    List<Comment> findByUserId(Long userId);
 }

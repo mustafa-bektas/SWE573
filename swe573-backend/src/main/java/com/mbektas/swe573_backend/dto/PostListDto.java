@@ -20,4 +20,7 @@ public class PostListDto {
         this.mysteryObjectImage = mysteryObjectImage;
         this.isSolved = isSolved;
     }
+
+    public PostListDto() {
+    }
 }

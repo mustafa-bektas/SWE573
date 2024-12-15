@@ -22,6 +22,7 @@ import { MysteryObjectModalComponent } from './components/mystery-object-modal/m
 import {MatDialogModule, MatDialogTitle} from '@angular/material/dialog';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 // Define routes for each component
 const routes: Routes = [
@@ -32,7 +33,7 @@ const routes: Routes = [
   { path: 'create-post', component: PostCreationComponent, canActivate: [AuthGuard] }, // Add route for Post Creation
   { path: 'posts', component: PostListComponent },
   { path: 'post/:id', component: PostDetailsComponent },
-  // other routes...
+  { path: 'profile/:id', component: ProfileComponent }
 ];
 
 //export const baseApiUrl = 'https://swe573-backend-594781402587.us-central1.run.app';
@@ -49,6 +50,7 @@ export const baseApiUrl = 'http://localhost:8080';
     MysteryObjectModalComponent,
     PostListComponent,
     PostDetailsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

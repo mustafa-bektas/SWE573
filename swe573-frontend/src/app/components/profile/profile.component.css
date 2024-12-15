@@ -1,0 +1,32 @@
+.profile-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.profile-header {
+  border-left: 4px solid #007bff; /* Bootstrap primary color */
+  transition: transform 0.3s ease;
+}
+
+.profile-header:hover {
+  transform: translateY(-5px);
+}
+
+.list-group-item {
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.profile-icon {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

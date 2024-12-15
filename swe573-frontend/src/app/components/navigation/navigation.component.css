@@ -1,3 +1,94 @@
 .navbar {
-  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 35px;
+  width: 35px;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+.search-container {
+  max-width: 250px;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  border: none;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+.search-input:focus {
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.search-btn {
+  border-radius: 0 50px 50px 0;
+}
+
+.notification-icon {
+  position: relative;
+  font-size: 1.2rem;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.notification-icon:hover {
+  color: #007bff;
+}
+
+.notification-dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-actions .btn {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nav-item.dropdown .dropdown-menu {
+  margin-top: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item.dropdown .dropdown-item {
+  transition: background-color 0.3s ease;
+}
+
+.nav-item.dropdown .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 991px) {
+  .container-fluid {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .offcanvas {
+    width: 280px;
+  }
 }

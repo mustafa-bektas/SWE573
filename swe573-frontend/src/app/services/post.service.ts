@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { baseApiUrl } from '../app.module'
+import { Post } from '../components/profile/profile.component';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,7 @@ export class PostService {
     return this.http.get<any>(`${this.apiUrl}/searchForPosts?q=${encodeURIComponent(keyword)}&page=${page}&size=${size}`);
   }
 
+  getUserPosts(userId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${baseApiUrl}/api/auth/${userId}/posts`);
+  }
 }

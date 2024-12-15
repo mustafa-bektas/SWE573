@@ -136,6 +136,15 @@ public class CommentService {
         return response;
     }
 
+    public List<CommentDetailsDto> getUserComments(Long userId) {
+        List<Comment> comments = commentRepository.findByUserId(userId);
+        User currentUser = userRepository.findById(userId).orElseThrow();
+
+        return comments.stream()
+                .map(comment -> mapCommentToDto(comment, currentUser))
+                .collect(Collectors.toList());
+    }
+
     private CommentDetailsDto mapCommentToDto(Comment comment, User currentUser) {
         boolean userUpvoted = currentUser != null ? comment.getUpvotedBy().contains(currentUser) : false;
         boolean userDownvoted = currentUser != null ? comment.getDownvotedBy().contains(currentUser) : false;
