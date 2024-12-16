@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HttpClient, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptorsFromDi, withJsonpSupport} from '@angular/common/http';
 import { MysteryObjectComponent } from './components/mystery-object/mystery-object.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbAccordionModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -69,7 +69,7 @@ export const baseApiUrl = 'http://localhost:8080';
   providers: [
     AuthGuard,
     NonAuthGuard,
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
     provideAnimationsAsync(),
     {
       provide: HTTP_INTERCEPTORS,

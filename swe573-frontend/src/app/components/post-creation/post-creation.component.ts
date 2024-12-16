@@ -1,23 +1,40 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PostService } from '../../services/post.service';
 import { MysteryObjectModalComponent } from '../mystery-object-modal/mystery-object-modal.component';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  catchError
+} from 'rxjs/operators';
 import {baseApiUrl} from '../../app.module';
+
+interface WikidataResult {
+  id: string;
+  label: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-post-creation',
   templateUrl: './post-creation.component.html',
   styleUrls: ['./post-creation.component.css']
 })
-export class PostCreationComponent {
+export class PostCreationComponent implements OnInit {
   postForm: FormGroup;
   mysteryObject: any;
   mysteryObjectImage: File | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
+
+  // Wikidata tag search properties
+  tagSearchControl = new FormControl('');
+  searchResults: WikidataResult[] = [];
+  selectedTags: WikidataResult[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,12 +46,78 @@ export class PostCreationComponent {
     this.postForm = this.fb.group({
       title: [''],
       content: [''],
-      tags: [''],
+      tags: [''], // Keep this for manual tag input if needed
     });
   }
 
+  ngOnInit() {
+    // Setup Wikidata tag search
+    this.tagSearchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => {
+        // Only search if query is at least 3 characters
+        if (query && query.length >= 3) {
+          return this.searchWikidata(query);
+        }
+        // Return empty array if search query is too short
+        return new Observable<WikidataResult[]>(observer => {
+          observer.next([]);
+          observer.complete();
+        });
+      })
+    ).subscribe({
+      next: (results) => {
+        this.searchResults = results;
+      },
+      error: (err) => {
+        console.error('Error searching Wikidata', err);
+        this.searchResults = [];
+      }
+    });
+  }
+
+  searchWikidata(query: string): Observable<WikidataResult[]> {
+    const wikidataUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&origin=*&language=en&limit=10&search=${encodeURIComponent(query)}`;
+
+    return this.http.jsonp<any>(wikidataUrl, 'callback').pipe(
+      switchMap(data => {
+        // Transform Wikidata results
+        return new Observable<WikidataResult[]>(observer => {
+          const formattedResults = (data.search || []).map((item: any) => ({
+            id: item.id,
+            label: item.label,
+            description: item.description || 'No description available'
+          }));
+          observer.next(formattedResults);
+          observer.complete();
+        });
+      }),
+      catchError(error => {
+        console.error('Error in Wikidata search', error);
+        return new Observable<WikidataResult[]>(observer => {
+          observer.next([]);
+          observer.complete();
+        });
+      })
+    );
+  }
+
+  selectTag(result: WikidataResult) {
+    // Prevent duplicate tags
+    if (!this.selectedTags.some(tag => tag.id === result.id)) {
+      this.selectedTags.push(result);
+      this.tagSearchControl.setValue('');
+      this.searchResults = [];
+    }
+  }
+
+  removeTag(result: WikidataResult) {
+    this.selectedTags = this.selectedTags.filter(tag => tag.id !== result.id);
+  }
+
   openMysteryObjectModal(): void {
-    // Open the modal and pass existing mysteryObject data, if available
+    // Existing method remains the same
     const dialogRef = this.dialog.open(MysteryObjectModalComponent, {
       data: { mysteryObjectData: this.mysteryObject, image: this.mysteryObjectImage }
     });
@@ -42,9 +125,8 @@ export class PostCreationComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.mysteryObject = result.mysteryObjectData;
-        this.mysteryObjectImage = result.image; // Store the image separately
+        this.mysteryObjectImage = result.image;
 
-        // Create an image preview if there's an image file
         if (this.mysteryObjectImage) {
           const reader = new FileReader();
           reader.onload = () => {
@@ -60,14 +142,15 @@ export class PostCreationComponent {
     if (this.postForm.valid) {
       const formData = new FormData();
 
-      // Split tags by commas and trim whitespace
-      const tagsArray = this.postForm.value.tags.split(',').map((tag: string) => tag.trim());
+      // Use selected Wikidata tags instead of manual input
+      const tagsArray = this.selectedTags.map(tag => tag.label);
 
       // Create JSON object for post data
       const postObject = {
         title: this.postForm.value.title,
         content: this.postForm.value.content,
         tags: tagsArray,
+        //wikidataTagIds: this.selectedTags.map(tag => tag.id), // Include Wikidata IDs if needed
         mysteryObject: this.mysteryObject
       };
 
@@ -85,11 +168,10 @@ export class PostCreationComponent {
               },
               error: (error: any) => {
                 console.error('Error uploading image', error);
-                this.router.navigate(['/']); // Redirect even if image upload fails
+                this.router.navigate(['/']);
               }
             });
           } else {
-            // No image to upload, so proceed with navigation
             this.router.navigate(['/']);
           }
         },
