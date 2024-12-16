@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { CommentService } from '../../services/comment.service';
+import {HttpClient} from '@angular/common/http';
+import {baseApiUrl} from '../../app.module';
+import {AuthService} from '../../services/auth.service';
 
 export interface Post {
   id: number;
@@ -29,16 +32,19 @@ export class ProfileComponent implements OnInit {
   comments: Comment[] = [];
   loadingPosts = true;
   loadingComments = true;
+  userName: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private authService: AuthService
   ) {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
+    this.getUserName();
     this.loadUserPosts();
     this.loadUserComments();
   }
@@ -84,5 +90,16 @@ export class ProfileComponent implements OnInit {
       month: 'long',
       day: 'numeric'
     });
+  }
+
+  private getUserName() {
+    this.authService.getUserNameFromId(this.userId).subscribe(
+      (data) => {
+        this.userName = data;
+      },
+      (error) => {
+        console.error('Error loading user name:', error);
+      }
+    );
   }
 }

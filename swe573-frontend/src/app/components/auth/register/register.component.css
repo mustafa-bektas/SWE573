@@ -1,0 +1,89 @@
+:host() {
+  --deep-ocean-blue: #1A5F7A;
+  --misty-sage: #7CA982;
+  --warm-taupe: #9C7C6E;
+  --soft-charcoal: #3C4142;
+  --pale-fog: #E6E9ED;
+  --background-gradient-start: #F5F7FA;
+  --background-gradient-end: #EEF1F5;
+}
+
+body {
+  background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(60, 65, 66, 0.1);
+  padding: 2rem;
+}
+
+h2 {
+  color: var(--deep-ocean-blue);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  color: var(--soft-charcoal);
+  font-weight: 600;
+}
+
+.form-control {
+  border: 1px solid rgba(60, 65, 66, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.3);
+  border-color: var(--deep-ocean-blue);
+}
+
+.is-invalid {
+  border-color: red;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: var(--deep-ocean-blue);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0.75rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: var(--warm-taupe);
+  transform: translateY(-3px);
+}
+
+.text-primary {
+  color: var(--deep-ocean-blue);
+  text-decoration: none;
+}
+
+.text-primary:hover {
+  color: var(--warm-taupe);
+  text-decoration: underline;
+}
+
+.text-center small {
+  color: var(--soft-charcoal);
+}

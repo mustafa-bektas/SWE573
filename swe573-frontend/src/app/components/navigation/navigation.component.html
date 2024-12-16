@@ -1,8 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
   <div class="container-fluid px-4">
     <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <span class="brand-text fw-bold text-primary">What is This Thing?</span>
+      <span class="brand-text">What is This Thing?</span>
     </a>
+    <div class="d-flex align-items-center justify-content-center w-100">
+      <div class="central-nav-section d-flex align-items-center">
+        <div class="input-group centered-search-container">
+          <input
+            type="text"
+            class="form-control centered-search-input"
+            placeholder="Search mysteries..."
+            [(ngModel)]="searchQuery"
+            (keyup.enter)="performSearch()"
+          />
+          <button class="btn btn-primary centered-search-btn" (click)="performSearch()">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+        <a class="btn btn-new-mystery ms-3" routerLink="/create-post">
+          NEW MYSTERY
+        </a>
+      </div>
+    </div>
+
+    <!-- User and Mobile Navigation Actions -->
     <div class="d-flex align-items-center">
       <!-- Mobile Toggle -->
       <button
@@ -25,24 +46,8 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <!-- Search Bar -->
-            <li class="nav-item d-flex align-items-center me-3">
-              <div class="input-group search-container">
-                <input
-                  type="text"
-                  class="form-control search-input"
-                  placeholder="Search posts..."
-                  [(ngModel)]="searchQuery"
-                  (keyup.enter)="performSearch()"
-                />
-                <button class="btn btn-primary search-btn" (click)="performSearch()">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </li>
-
             <!-- Notifications Dropdown -->
-            <li class="nav-item dropdown" *ngIf="authService.isLoggedIn | async">
+            <li class="nav-item dropdown me-2" *ngIf="authService.isLoggedIn | async">
               <a
                 class="nav-link position-relative notification-icon"
                 href="#"
@@ -75,12 +80,6 @@
                       >
                         View
                       </button>
-                      <button
-                        class="btn btn-sm btn-outline-secondary"
-                        (click)="dismissNotification(notification.id); $event.stopPropagation();"
-                      >
-                        Dismiss
-                      </button>
                     </div>
                   </div>
                 </li>
@@ -112,11 +111,6 @@
                   <li>
                     <a class="dropdown-item" routerLink="/posts">
                       <i class="bi bi-house me-2"></i>Home
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" routerLink="/create-post">
-                      <i class="bi bi-plus-circle me-2"></i>Create Post
                     </a>
                   </li>
                   <li><hr class="dropdown-divider" /></li>

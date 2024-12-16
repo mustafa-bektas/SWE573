@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-mystery-object-modal',
   templateUrl: './mystery-object-modal.component.html',
+  styleUrls: ['./mystery-object-modal.component.css']
 })
 export class MysteryObjectModalComponent {
   mysteryObjectForm: FormGroup;

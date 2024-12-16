@@ -11,6 +11,7 @@ import {baseApiUrl} from '../../app.module';
 @Component({
   selector: 'app-post-creation',
   templateUrl: './post-creation.component.html',
+  styleUrls: ['./post-creation.component.css']
 })
 export class PostCreationComponent {
   postForm: FormGroup;
@@ -75,13 +76,11 @@ export class PostCreationComponent {
 
       const observer = {
         next: (response: any) => {
-          console.log('Post created successfully:', response);
           const mysteryObjectId = response.mysteryObjectId;
 
           if (this.mysteryObjectImage) {
             this.uploadImage(mysteryObjectId).subscribe({
               next: () => {
-                console.log('Image uploaded successfully');
                 this.router.navigate(['/']); // Redirect to home page
               },
               error: (error: any) => {

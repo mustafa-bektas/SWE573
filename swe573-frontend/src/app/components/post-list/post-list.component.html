@@ -1,62 +1,64 @@
-<div *ngIf="loading" class="spinner-container position-fixed top-0 start-0 w-100 h-100 bg-light d-flex justify-content-center align-items-center">
-  <div class="spinner-grow text-primary" role="status">
+<div *ngIf="loading" class="spinner-container d-flex justify-content-center align-items-center my-5">
+  <div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
 
-<div *ngIf="!loading" class="container-fluid px-4 py-5 mysteries-page">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="display-5 fw-bold text-center text-dark mb-5 animate__animated animate__fadeIn">
-        Uncover the Mysteries
+<div *ngIf="!loading" class="mysteries-page container-fluid">
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <h1 class="display-4 fw-bold text-dark mb-4 animate__animated animate__fadeIn">
+        Uncover Hidden Mysteries
       </h1>
+      <p class="lead text-muted mx-auto" style="max-width: 700px;">
+        Do you have any mystery items that you can't identify? Share them with the community and help solve mysteries together!
+      </p>
     </div>
   </div>
 
-  <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mystery-grid">
-    <div class="col" *ngFor="let post of posts" data-aos="fade-up">
-      <div class="mystery-card card border-0 shadow-lg h-100 overflow-hidden position-relative">
-        <div class="card-image-container position-relative">
-          <img *ngIf="post.mysteryObjectImage"
-               [src]="'data:image/png;base64,' + post.mysteryObjectImage"
-               class="card-img-top mystery-image"
-               alt="Mystery Object Image">
-          <div *ngIf="post.solved" class="solved-badge position-absolute top-0 end-0 m-3 badge bg-success">
-            Solved
-          </div>
+  <div class="mystery-grid">
+    <div class="mystery-card" *ngFor="let post of posts" data-aos="fade-up">
+      <div class="card-image-container">
+        <img *ngIf="post.mysteryObjectImage"
+             [src]="'data:image/png;base64,' + post.mysteryObjectImage"
+             class="mystery-image"
+             alt="Mystery Object Image">
+        <div *ngIf="post.solved" class="solved-badge">
+          Solved Mystery
         </div>
+      </div>
 
-        <div class="card-body d-flex flex-column p-4">
-          <h5 class="card-title fw-bold mb-3 text-truncate">{{ post.title }}</h5>
+      <div class="card-body">
+        <div>
+          <h5 class="card-title">{{ post.title }}</h5>
 
-          <div class="tags-container mb-3">
-            <span *ngFor="let tag of post.tags"
-                  class="badge tag-badge me-1 mb-1 rounded-pill">
+          <div class="tags-container">
+            <span *ngFor="let tag of post.tags" class="tag-badge">
               {{ tag }}
             </span>
           </div>
-
-          <button type="button"
-                  class="btn btn-primary mt-auto align-self-start rounded-pill px-4 mystery-details-btn"
-                  (click)="onCardClick(post)">
-            View Details
-            <i class="bi bi-arrow-right ms-2"></i>
-          </button>
         </div>
+
+        <button type="button"
+                class="mystery-details-btn mt-3"
+                (click)="onCardClick(post)">
+          Explore Mystery
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
       </div>
     </div>
   </div>
 
   <!-- Pagination -->
-  <nav aria-label="Page navigation" class="mt-5">
-    <ul class="pagination justify-content-center">
+  <nav aria-label="Mystery page navigation" class="pagination">
+    <ul class="pagination">
       <li class="page-item" [class.disabled]="currentPage === 0">
         <button class="page-link" (click)="prevPage()" [disabled]="currentPage === 0">
           <i class="bi bi-chevron-left"></i>
         </button>
       </li>
       <li class="page-item disabled">
-        <span class="page-link">{{ currentPage + 1 }}</span>
+        <span class="page-link">Page {{ currentPage + 1 }}</span>
       </li>
       <li class="page-item" [class.disabled]="posts.length < pageSize">
         <button class="page-link" (click)="nextPage()" [disabled]="posts.length < pageSize">

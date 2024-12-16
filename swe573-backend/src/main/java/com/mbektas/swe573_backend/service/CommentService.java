@@ -54,7 +54,10 @@ public class CommentService {
         Comment savedComment = commentRepository.save(comment);
 
         notificationService.sendCommentNotification(post.getUser().getId(), post, savedComment);
-        notificationService.sendCommentNotification(parentComment.getUser().getId(), post, savedComment);
+        if(parentComment != null)
+        {
+            notificationService.sendCommentNotification(parentComment.getUser().getId(), post, savedComment);
+        }
 
         Map<String, Long> response = new HashMap<>();
         response.put("commentId", savedComment.getId());

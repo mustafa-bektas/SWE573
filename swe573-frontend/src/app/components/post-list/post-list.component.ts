@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, finalize } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
@@ -10,46 +12,43 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class PostListComponent implements OnInit {
   posts: any[] = [];
   currentPage: number = 0;
-  pageSize: number = 10;
-  loading = true; // Loading state variable
+  pageSize: number = 8; // Reduced to match new grid layout
+  loading = true;
   searchQuery: string = '';
+  totalPosts: number = 0;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private postService: PostService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['q'] || '';
+      this.currentPage = 0; // Reset page when search changes
       this.fetchPosts();
     });
   }
 
   fetchPosts(): void {
-    this.loading = true; // Set loading to true before API call
+    this.loading = true;
 
-    if (this.searchQuery) {
-      this.postService.searchPosts(this.searchQuery, this.currentPage, this.pageSize).subscribe(
-        data => {
-          this.posts = data.content;
-          this.loading = false; // Set loading to false after data is loaded
-        },
-        error => {
-          console.error('Error fetching posts:', error);
-          this.loading = false; // Set loading to false even if there’s an error
-        }
-      );
-      return;
-    }
+    const fetchMethod = this.searchQuery
+      ? this.postService.searchPosts(this.searchQuery, this.currentPage, this.pageSize)
+      : this.postService.getPosts(this.currentPage, this.pageSize);
 
-    this.postService.getPosts(this.currentPage, this.pageSize).subscribe(
-      data => {
-        this.posts = data.content;
-        this.loading = false; // Set loading to false after data is loaded
-      },
-      error => {
+    fetchMethod.pipe(
+      catchError(error => {
         console.error('Error fetching posts:', error);
-        this.loading = false; // Set loading to false even if there’s an error
-      }
-    );
+        // Optional: Add error toast or notification
+        return of({ content: [], totalElements: 0 });
+      }),
+      finalize(() => this.loading = false)
+    ).subscribe(data => {
+      this.posts = data.content;
+      this.totalPosts = data.totalElements;
+    });
   }
 
   onCardClick(post: any) {
@@ -57,8 +56,10 @@ export class PostListComponent implements OnInit {
   }
 
   nextPage(): void {
-    this.currentPage++;
-    this.fetchPosts();
+    if (this.posts.length === this.pageSize) {
+      this.currentPage++;
+      this.fetchPosts();
+    }
   }
 
   prevPage(): void {
@@ -66,13 +67,5 @@ export class PostListComponent implements OnInit {
       this.currentPage--;
       this.fetchPosts();
     }
-  }
-
-  navigateToSearch(query: string): void {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { q: query },
-      queryParamsHandling: 'merge', // Merge with existing query parameters
-    });
   }
 }

@@ -21,23 +21,39 @@ export class AuthService {
 
   // Register user
   register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+    return this.http.post(`${this.apiUrl}/register`, user).pipe(
+      map((response: any) => response), // Pass the response down
+      tap({
+        error: (error) => {
+          throw error; // Ensure the error bubbles up
+        },
+      })
+    );
   }
+
 
   // Login user and store token
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
-        const token = response.token; // Assuming response has a 'token' property
+        const token = response.token;
         if (token) {
-          localStorage.setItem(this.tokenKey, token); // Store token as a string
-          this.isLoggedIn.next(true); // Update login status
+          localStorage.setItem(this.tokenKey, token);
+          this.isLoggedIn.next(true);
           this.userName = credentials.email;
           localStorage.setItem('userName', this.userName);
         }
+      }),
+      map((response: any) => response), // Pass the response down
+      // Pass errors to the component
+      tap({
+        error: (error) => {
+          throw error; // Ensure the error bubbles up
+        },
       })
     );
   }
+
 
   // Logout user
   logout(): void {
@@ -63,5 +79,16 @@ export class AuthService {
       return decodedToken.userId || null;
     }
     return null;
+  }
+
+  getUserNameFromId(userId: number): Observable<any> {
+    return this.http.get(`${baseApiUrl}/api/auth/${userId}`).pipe(
+      map((response: any) => response.username),
+      tap({
+        error: (error) => {
+          throw error;
+        },
+      })
+    );
   }
 }

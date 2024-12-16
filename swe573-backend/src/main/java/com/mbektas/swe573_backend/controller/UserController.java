@@ -8,8 +8,10 @@ import com.mbektas.swe573_backend.security.JwtUtil;
 import com.mbektas.swe573_backend.service.CommentService;
 import com.mbektas.swe573_backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -42,38 +44,71 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
+        // Check if the email is already registered
+        if (userRepository.existsByEmail(user.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "Email is already registered."));
+        }
+
+        // Check if the username is already taken
+        if (userRepository.existsByUsername(user.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "Username is already taken."));
+        }
+
+        // Encode the password and save the user
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User registered successfully!");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(Map.of("message", "User registered successfully!"));
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
-        // Authenticate the user using their email and password
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-        );
+        try {
+            // Authenticate the user using their email and password
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+            );
 
-        // Retrieve the user from the database to get their full details, including ID
-        User authenticatedUser = userRepository.findByEmail(user.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+            // Retrieve the user from the database to get their full details, including ID
+            User authenticatedUser = userRepository.findByEmail(user.getEmail())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Generate the token using email and userId
-        String token = jwtUtil.generateToken(authenticatedUser.getEmail(), authenticatedUser.getId());
+            // Generate the token using email and userId
+            String token = jwtUtil.generateToken(authenticatedUser.getEmail(), authenticatedUser.getId());
 
-        // Create a JSON response with the token
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
-        return ResponseEntity.ok(response);
+            // Create a JSON response with the token
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+            return ResponseEntity.ok(response);
+
+        } catch (BadCredentialsException e) {
+            // Handle incorrect email or password
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+
+        } catch (Exception e) {
+            // Handle other exceptions
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "An unexpected error occurred");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
     }
+
 
     @GetMapping("/{userId}/posts")
     public ResponseEntity<List<PostListDto>> getUserPosts(@PathVariable Long userId) {
         List<PostListDto> userPosts = postService.getUserPosts(userId);
         return ResponseEntity.ok(userPosts);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<Map<String,String>> getUserName(@PathVariable Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return ResponseEntity.ok(Map.of("username", user.getUsername()));
     }
 
     @GetMapping("/{userId}/comments")

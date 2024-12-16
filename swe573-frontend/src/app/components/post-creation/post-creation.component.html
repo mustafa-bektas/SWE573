@@ -1,8 +1,8 @@
 <div class="container my-5">
-  <h2 class="text-center mb-4">Create New Post</h2>
+  <h2>Create New Post</h2>
 
   <!-- Post Form -->
-  <form [formGroup]="postForm" (ngSubmit)="createPost()" class="p-4 shadow-lg rounded bg-light">
+  <form [formGroup]="postForm" (ngSubmit)="createPost()" class="p-4 shadow-lg">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input id="title" formControlName="title" class="form-control" placeholder="Enter the post title" />
@@ -25,17 +25,17 @@
       </button>
     </div>
 
-    <button type="submit" class="btn btn-primary w-100">Create Post</button>
+    <button type="submit" class="btn btn-primary">Create Post</button>
   </form>
 
   <!-- Display Mystery Object Details -->
-  <div *ngIf="mysteryObject" class="mt-5 p-4 shadow-lg rounded bg-light">
+  <div *ngIf="mysteryObject" class="mt-5 p-4 shadow-lg">
     <h3 class="text-center">Mystery Object Details</h3>
     <!-- Image Preview -->
     <div *ngIf="mysteryObjectImage" class="text-center mb-4">
-      <img [src]="imagePreviewUrl" alt="Mystery Object Image" class="img-fluid" style="max-height: 300px; max-width: 100%;" />
+      <img [src]="imagePreviewUrl" alt="Mystery Object Image" class="img-fluid" />
     </div>
-    
+
     <div class="row g-3">
       <div class="col-md-6">
         <p><strong>Description:</strong> {{ mysteryObject.description }}</p>

@@ -57,9 +57,7 @@ export class MysteryObjectComponent {
   createMysteryObject(): void {
     const observer = {
       next: (response: any) => {
-        console.log('Mystery Object created:', response);
         const objectId = response.id;  // Assume that the backend returns the created object's ID
-        console.log('Object ID:', objectId);
 
         // After the object is created, upload the image
         if (this.selectedFile) {
@@ -70,7 +68,6 @@ export class MysteryObjectComponent {
         console.error('Error creating Mystery Object', error);
       },
       complete: () => {
-        console.log('Mystery Object creation process complete');
       }
     };
 

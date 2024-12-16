@@ -1,73 +1,92 @@
 /* Global Color Palette */
-:root {
-  --primary-color: #4a90e2;
-  --secondary-color: #6c757d;
-  --background-light: #f4f6f9;
-  --text-dark: #333;
-  --text-muted: #6c757d;
-  --card-shadow: 0 10px 25px rgba(0,0,0,0.08);
+:host() {
+  --deep-ocean-blue: #1A5F7A;
+  --misty-sage: #7CA982;
+  --warm-taupe: #985050;
+  --soft-charcoal: #3C4142;
+  --pale-fog: #E6E9ED;
+  --background-gradient-start: #F5F7FA;
+  --background-gradient-end: #EEF1F5;
 }
 
-body {
-  background-color: var(--background-light);
-  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-  color: var(--text-dark);
+.body {
+  background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--soft-charcoal);
+  line-height: 1.6;
+}
+
+.container {
+  background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--soft-charcoal);
   line-height: 1.6;
 }
 
 /* Enhanced Loading Spinner */
 .spinner-container {
   min-height: 300px;
-  background-color: rgba(255,255,255,0.8);
+  background-color: #F2F4F8;
 }
 
 .spinner-border {
   width: 3rem;
   height: 3rem;
   border-width: 0.25em;
+  color: var(--deep-ocean-blue);
 }
+
+.spinner-container .spinner-border {
+  color: var(--deep-ocean-blue) !important;
+}
+
 
 /* Card Styling with Modern Aesthetic */
 .card {
-  border-radius: 16px;
-  box-shadow: var(--card-shadow);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(60, 65, 66, 0.06);
   border: none;
   margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.30, 0.94);
+  background: white;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 30px 60px rgba(60, 65, 66, 0.1);
 }
 
 .card-header {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  background: linear-gradient(135deg, rgba(26, 95, 122, 0.05), rgba(124, 169, 130, 0.05));
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--pale-fog);
 }
 
 .card-header h2, .card-header h3 {
-  color: var(--primary-color);
+  color: var(--deep-ocean-blue);
   margin-bottom: 0;
+  font-weight: 700;
 }
 
 /* Enhanced Tag Styling */
 .badge {
-  background-color: var(--primary-color);
+  background-color: rgba(26, 95, 122, 0.1);
+  color: var(--deep-ocean-blue);
   opacity: 0.9;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .badge:hover {
   opacity: 1;
+  background-color: rgba(26, 95, 122, 0.2);
 }
 
 /* Comments Section */
 .list-group-item {
   background-color: transparent;
-  border-color: rgba(0,0,0,0.05);
+  border-color: rgba(60, 65, 66, 0.05);
   transition: all 0.3s ease;
   border-radius: 12px;
   margin-bottom: 0.75rem;
@@ -75,35 +94,35 @@ body {
 }
 
 .list-group-item:hover {
-  background-color: rgba(74, 144, 226, 0.05);
-  transform: translateX(5px);
+  background-color: rgba(26, 95, 122, 0.05);
+  transform: translateX(2px);
 }
 
 .comment-author {
-  color: var(--primary-color);
+  color: var(--deep-ocean-blue);
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .comment-author:hover {
-  color: darken(var(--primary-color), 10%);
+  color: var(--warm-taupe);
 }
 
 /* Nested Comments with Subtle Indent */
 .nested-comments {
-  border-left: 3px solid rgba(74, 144, 226, 0.2);
+  border-left: 3px solid rgba(26, 95, 122, 0.2);
   margin-left: 0px;
   padding-left: 20px;
   transition: border-color 0.3s ease;
 }
 
 .nested-comments:hover {
-  border-left-color: var(--primary-color);
+  border-left-color: var(--deep-ocean-blue);
 }
 
 /* Enhanced Buttons */
-.btn-outline-primary, .btn-primary {
-  border-radius: 25px;
+.btn-outline-primary, .btn-primary, .mystery-details-btn {
+  border-radius: 30px;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.5px;
@@ -111,39 +130,95 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-weight: 600;
+}
+
+.btn-outline-primary, .btn-primary:not(.mystery-details-btn) {
+  background-color: var(--deep-ocean-blue);
+  color: white;
+  border: none;
 }
 
 .btn-outline-primary:hover, .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(26, 95, 122, 0.2);
+  background-color: var(--warm-taupe);
 }
 
 /* Mystery Image */
 .mystery-image {
-  max-height: 500px; /* Reduced from 400px */
+  max-height: 500px;
   max-width: 100%;
   object-fit: cover;
-  border-radius: 16px;
-  box-shadow: var(--card-shadow);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(60, 65, 66, 0.06);
   transition: all 0.4s ease;
+  filter: brightness(1);
 }
 
 .mystery-image:hover {
   transform: scale(1.03);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+  filter: brightness(1);
+  box-shadow: 0 30px 60px rgba(60, 65, 66, 0.1);
 }
 
 /* Textarea Styling */
 textarea.form-control {
   border-radius: 12px;
-  border-color: rgba(0,0,0,0.1);
+  border-color: var(--pale-fog);
   resize: none;
   transition: all 0.3s ease;
 }
 
 textarea.form-control:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+  border-color: var(--deep-ocean-blue);
+  box-shadow: 0 0 0 0.2rem rgba(26, 95, 122, 0.25);
+}
+
+/* Best Answer Badge */
+.badge.bg-warning.text-dark {
+  background-color: var(--misty-sage) !important;
+  color: white !important;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  font-weight: 450;
+}
+
+/* Vote Buttons */
+.btn-outline-success, .btn-success,
+.btn-outline-danger, .btn-danger {
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.btn-outline-success, .btn-outline-danger {
+  color: var(--soft-charcoal);
+  border-color: #717575;
+}
+
+.btn-outline-success:hover {
+  background: var(--misty-sage);
+}
+
+.btn-outline-danger:hover {
+  background: var(--warm-taupe);
+}
+
+.btn-success {
+  background-color: var(--misty-sage);
+  border-color: var(--misty-sage);
+}
+
+.btn-danger {
+  background-color: var(--warm-taupe);
+  border-color: var(--warm-taupe);
+}
+
+.tag-badge {
+  background-color: rgba(26, 95, 122, 0.1); /* Use var(--deep-ocean-blue) if needed */
+  color: var(--deep-ocean-blue);
 }
 
 /* Responsive Adjustments */
@@ -157,21 +232,3 @@ textarea.form-control:focus {
     padding-left: 15px;
   }
 }
-
-/* Highlight the best answer badge */
-.badge.bg-warning.text-dark {
-  font-size: 0.85rem;
-  padding: 0.3rem 0.6rem;
-  font-weight: 600;
-}
-
-/* Add spacing for the mark as best answer button */
-.btn-outline-warning {
-  transition: all 0.3s ease;
-}
-
-.btn-outline-warning:hover {
-  background-color: #ffc107;
-  color: black;
-}
-
