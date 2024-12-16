@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  frontend:
+    build: 
+      context: ./swe573-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./swe573-frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - app-network
+
+  backend:
+    build: 
+      context: ./swe573-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DATASOURCE_PW=aOqC2ONfgskly8q5sVf6
+      - DATASOURCE_URL=jdbc:mysql://database-1.ctgeeyo8mprv.eu-north-1.rds.amazonaws.com:3306/swe573
+      - DATASOURCE_USERNAME=admin
+      - JWT_SECRET_KEY=1e3a3fe618824b7fbaaad13dd714afc976b05c9ae94fba983c9522bdf7ca400af671cb4955ffe51e8647d97b2791230d443facdeecacd826812ad373d4322467
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

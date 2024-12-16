@@ -1,14 +1,11 @@
-# Use OpenJDK as the base image
-FROM openjdk:17-jdk-slim
-
-# Set the working directory
+FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /app
+COPY pom.xml ./
+COPY src ./src
+RUN mvn package -DskipTests
 
-# Copy the built Spring Boot JAR into the container
-COPY target/swe573-backend-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the backend application port (usually 8080)
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

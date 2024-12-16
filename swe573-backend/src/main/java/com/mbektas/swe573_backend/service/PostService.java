@@ -45,7 +45,7 @@ public class PostService {
         post.setTitle(postCreationDto.getTitle());
         post.setDescription(postCreationDto.getContent());
         post.setTags(postCreationDto.getTags());
-        post.setUser(userRepository.findByUsername(userName).orElseThrow());
+        post.setUser(userRepository.findByEmail(userName).orElseThrow());
 
         MysteryObject mysteryObject = postCreationDto.getMysteryObject();
 
