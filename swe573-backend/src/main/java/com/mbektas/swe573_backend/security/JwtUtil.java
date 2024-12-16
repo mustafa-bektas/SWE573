@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -14,10 +15,13 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "my_super_secret_key_my_super_secret_key"; // Ensure this key is at least 32 characters long for HMAC-SHA
+    @Value("${JWT_SECRET_KEY}")
+    private String secretKey; // Inject the secret key from environment variables
 
     // Convert the secret key to a Key object for use with the latest JJWT version
-    private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    private Key getKey() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
 
     public String generateToken(String email, Long userId) {
         Map<String, Object> claims = new HashMap<>();
@@ -25,14 +29,13 @@ public class JwtUtil {
         return createToken(claims, email);
     }
 
-
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 1)) // 1 hour expiration
-                .signWith(key, SignatureAlgorithm.HS256) // Updated to use the Key object
+                .signWith(getKey(), SignatureAlgorithm.HS256) // Updated to use the Key object
                 .compact();
     }
 
@@ -46,7 +49,7 @@ public class JwtUtil {
 
     private Claims extractClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(key) // Use the Key object here as well
+                .setSigningKey(getKey()) // Use the Key object here as well
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
