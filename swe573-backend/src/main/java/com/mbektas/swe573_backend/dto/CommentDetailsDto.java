@@ -22,7 +22,9 @@ public class CommentDetailsDto {
 
     private boolean isBestAnswer;
 
-    public CommentDetailsDto(Long id, String content, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt, List<CommentDetailsDto> replies, int upvotes, int downvotes, boolean userUpvoted, boolean userDownvoted, boolean isBestAnswer) {
+    private Long postId;
+
+    public CommentDetailsDto(Long id, String content, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt, List<CommentDetailsDto> replies, int upvotes, int downvotes, boolean userUpvoted, boolean userDownvoted, boolean isBestAnswer, Long postId) {
         this.id = id;
         this.content = content;
         this.author = authorName;
@@ -34,6 +36,7 @@ public class CommentDetailsDto {
         this.userUpvoted = userUpvoted;
         this.userDownvoted = userDownvoted;
         this.isBestAnswer = isBestAnswer;
+        this.postId = postId;
     }
 
     public CommentDetailsDto() {
