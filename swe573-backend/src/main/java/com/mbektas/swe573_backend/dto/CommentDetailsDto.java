@@ -9,7 +9,7 @@ import java.util.List;
 public class CommentDetailsDto {
     private Long id;
     private String content;
-    private String author; // To show the author's username
+    private String author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<CommentDetailsDto> replies; // Nested replies

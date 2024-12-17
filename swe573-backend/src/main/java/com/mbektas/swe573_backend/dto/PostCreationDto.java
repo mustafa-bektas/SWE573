@@ -11,6 +11,6 @@ public class PostCreationDto {
     private String title;
     private String content;
     private Set<String> tags;
-    private MultipartFile image; // Use MultipartFile for image upload
+    private MultipartFile image;
     private MysteryObject mysteryObject;
 }

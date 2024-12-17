@@ -62,18 +62,16 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/register",
                                 "/api/auth/login",
-                                "/v3/**",
-                                "/swagger-ui/**",
                                 "api/posts/getForPostList",
                                 "api/posts/getForPostDetails/**",
-                                "api/comments/get/**").permitAll() // Allow public access to log in and register
+                                "api/comments/get/**").permitAll() // Allow public access to log in, register and see posts & comments
                         .anyRequest().authenticated() // All other requests need authentication
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf(csrf -> csrf.disable()); // Disable CSRF for stateless REST API
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
