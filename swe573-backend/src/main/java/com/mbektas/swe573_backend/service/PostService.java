@@ -185,7 +185,7 @@ public class PostService {
 
     private void mapPostToDto(Post post, Set<String> tags, PostDetailsDto postDetailsDto, User currentUser) {
         postDetailsDto.setId(post.getId());
-        postDetailsDto.setAuthor(post.getUser().getUsername());
+        postDetailsDto.setAuthor(post.getUser().getEmail());
         postDetailsDto.setTitle(post.getTitle());
         postDetailsDto.setDescription(post.getDescription());
         postDetailsDto.setTags(tags);
