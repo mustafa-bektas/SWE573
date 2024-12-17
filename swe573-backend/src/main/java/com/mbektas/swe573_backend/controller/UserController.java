@@ -72,7 +72,7 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
 
-            // Retrieve the user from the database to get their full details, including ID
+            // Retrieve the user from the database to get full details
             User authenticatedUser = userRepository.findByEmail(user.getEmail())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
