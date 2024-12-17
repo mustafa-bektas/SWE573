@@ -1,5 +1,5 @@
 /* Global Color Palette */
-:host() {
+:host {
   --deep-ocean-blue: #1A5F7A;
   --misty-sage: #7CA982;
   --warm-taupe: #985050;
